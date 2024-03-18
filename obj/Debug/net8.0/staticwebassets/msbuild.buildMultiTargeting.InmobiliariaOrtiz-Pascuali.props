@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\InmobiliariaOrtiz-Pascuali.props" />
+</Project>
