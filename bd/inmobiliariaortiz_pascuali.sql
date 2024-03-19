@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2024 a las 18:30:02
+-- Tiempo de generación: 19-03-2024 a las 19:04:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -52,7 +52,7 @@ CREATE TABLE `inmueble` (
   `cant_ambientes` int(11) NOT NULL,
   `coordenadas` varchar(100) NOT NULL,
   `precio` int(11) NOT NULL,
-  `fechas_disponible` varchar(100) NOT NULL,
+  `fechas_disponibles` varchar(100) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
