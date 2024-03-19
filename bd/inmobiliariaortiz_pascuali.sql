@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-03-2024 a las 17:18:06
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 19-03-2024 a las 18:30:02
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `contrato` (
-  `id_contrato` int(11) NOT NULL,
+  `idContrato` int(11) NOT NULL,
+  `idInquilino` int(11) NOT NULL,
+  `idInmueble` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   `multa` int(11) NOT NULL,
@@ -43,6 +45,7 @@ CREATE TABLE `contrato` (
 
 CREATE TABLE `inmueble` (
   `idInmueble` int(11) NOT NULL,
+  `idPropietario` int(11) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `tipo` varchar(100) NOT NULL,
   `uso` varchar(100) NOT NULL,
@@ -74,7 +77,8 @@ CREATE TABLE `inquilino` (
 --
 
 CREATE TABLE `pago` (
-  `id_pago` int(11) NOT NULL,
+  `idPago` int(11) NOT NULL,
+  `idContrato` int(11) NOT NULL,
   `num_pago` int(11) NOT NULL,
   `monto` int(11) NOT NULL,
   `fecha_pago` date NOT NULL,
@@ -117,6 +121,34 @@ CREATE TABLE `usuario` (
 --
 
 --
+-- Indices de la tabla `contrato`
+--
+ALTER TABLE `contrato`
+  ADD PRIMARY KEY (`idContrato`),
+  ADD KEY `idInquilino` (`idInquilino`),
+  ADD KEY `idInmueble` (`idInmueble`);
+
+--
+-- Indices de la tabla `inmueble`
+--
+ALTER TABLE `inmueble`
+  ADD PRIMARY KEY (`idInmueble`),
+  ADD KEY `idPropietario` (`idPropietario`);
+
+--
+-- Indices de la tabla `inquilino`
+--
+ALTER TABLE `inquilino`
+  ADD PRIMARY KEY (`idInquilino`);
+
+--
+-- Indices de la tabla `pago`
+--
+ALTER TABLE `pago`
+  ADD PRIMARY KEY (`idPago`),
+  ADD KEY `id_contrato` (`idContrato`);
+
+--
 -- Indices de la tabla `propietario`
 --
 ALTER TABLE `propietario`
@@ -131,6 +163,29 @@ ALTER TABLE `propietario`
 --
 ALTER TABLE `propietario`
   MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `contrato`
+--
+ALTER TABLE `contrato`
+  ADD CONSTRAINT `contrato_ibfk_1` FOREIGN KEY (`idInquilino`) REFERENCES `inquilino` (`idInquilino`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `contrato_ibfk_2` FOREIGN KEY (`idInmueble`) REFERENCES `inmueble` (`idInmueble`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `inmueble`
+--
+ALTER TABLE `inmueble`
+  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietario` (`idPropietario`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pago`
+--
+ALTER TABLE `pago`
+  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`idContrato`) REFERENCES `contrato` (`idContrato`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
