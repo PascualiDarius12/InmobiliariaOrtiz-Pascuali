@@ -1,8 +1,8 @@
-public class propietario
+namespace InmobiliariaOrtiz_Pascuali.Models;
+
+public class ErrorViewModel
 {
-    public int idPropietario {get;set};   
-    public string nombre {get;set};
-    public string apellido {get;set};
-    public string dni {get;set};
-    public bool estado {get;set};
+    public string? RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }
