@@ -1,39 +1,69 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<InmobiliariaOrtiz_Pascuali.Models.Propietario>
+@{
+    ViewData["Title"] = "Propietario";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome Propietario</h1>
+    <h1 class="display-4">Lista de PROPIETARIOS ()</h1>
     
-    <table class="table">
-        
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Dni</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Dario</td>
-      <td>Pascuali</td>
-      <td>40485036</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Wilson</td>
-      <td>Ortiz</td>
-      <td>34567890</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Joaquin</td>
-      <td>Ortega</td>
-      <td>Indocumentado</td>
-    </tr>
-  </tbody>
+
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var p in Model)
+        {
+            <tr>
+                <td>@p.nombre</td>
+                <td>@p.apellido</td>
+                <td>@p.dni</td>
+                <td>@p.estado</td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+
+<!--
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Dni</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Dario</td>
+            <td>Pascuali</td>
+            <td>40485036</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Wilson</td>
+            <td>Ortiz</td>
+            <td>34567890</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Joaquin</td>
+            <td>Ortega</td>
+            <td>Indocumentado</td>
+       
+
+
+
 </div>

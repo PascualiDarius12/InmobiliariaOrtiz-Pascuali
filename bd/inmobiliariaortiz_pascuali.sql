@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2024 a las 19:04:09
+-- Tiempo de generación: 23-03-2024 a las 00:57:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -88,16 +88,27 @@ CREATE TABLE `pago` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `propietario`
+-- Estructura de tabla para la tabla `propietarios`
 --
 
-CREATE TABLE `propietario` (
+CREATE TABLE `propietarios` (
   `idPropietario` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(100) NOT NULL,
   `dni` varchar(50) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `propietarios`
+--
+
+INSERT INTO `propietarios` (`idPropietario`, `nombre`, `apellido`, `dni`, `estado`) VALUES
+(1, 'Juan', 'Perez', '123456789', 1),
+(2, 'jorge', 'gutierrez', '36789153', 0),
+(3, 'alberto ', 'fernandez ', '256789452', 0),
+(4, 'julio', 'iglesias', '16789120', 1),
+(5, 'loco', 'amato', '123456780', 1);
 
 -- --------------------------------------------------------
 
@@ -149,9 +160,9 @@ ALTER TABLE `pago`
   ADD KEY `id_contrato` (`idContrato`);
 
 --
--- Indices de la tabla `propietario`
+-- Indices de la tabla `propietarios`
 --
-ALTER TABLE `propietario`
+ALTER TABLE `propietarios`
   ADD PRIMARY KEY (`idPropietario`);
 
 --
@@ -159,10 +170,10 @@ ALTER TABLE `propietario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `propietario`
+-- AUTO_INCREMENT de la tabla `propietarios`
 --
-ALTER TABLE `propietario`
-  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `propietarios`
+  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -179,7 +190,7 @@ ALTER TABLE `contrato`
 -- Filtros para la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietario` (`idPropietario`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietarios` (`idPropietario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pago`

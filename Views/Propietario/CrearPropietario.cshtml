@@ -1,0 +1,26 @@
+@model InmobiliariaOrtiz_Pascuali.Models.Propietario // Ajusta el modelo según corresponda
+@{
+    ViewData["Title"] = "crear una persona";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Dar de Alta Propietario</h2>
+    <!-- Formulario de creación de propietario -->
+    <form asp-action="CrearPropietario" method="post">
+        <div class="mb-3">
+            <label asp-for="nombre" class="form-label">Nombre</label>
+            <input asp-for="nombre" class="form-control" placeholder="Ingrese su nombre">
+        </div>
+        <div class="mb-3">
+            <label asp-for="apellido" class="form-label">Apellido</label>
+            <input asp-for="apellido" class="form-control" placeholder="Ingrese su apellido">
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="dni" class="form-label">Dni</label>
+            <input asp-for="dni" class="form-control" placeholder="Ingrese su apellido">
+        </div>
+        <!-- Botón de guardar -->
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
