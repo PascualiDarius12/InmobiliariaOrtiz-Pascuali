@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.X509.SigI;
 
