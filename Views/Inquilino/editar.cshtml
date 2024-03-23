@@ -1,0 +1,30 @@
+﻿@model Inquilino
+
+@{
+  ViewData["Title"] = "Home Page";
+}
+<div class="w-100 d-flex justify-content-center">
+
+  <form asp-action="Insertar" class="w-50">
+    <p>Registrar Inquilino:</p>
+    <div class="form-group d-none">
+      <input asp-for="IdInquilino" type="text" class="form-control" id="">
+    </div>
+    <div class="form-group">
+      <label asp-for="Nombre">Nombre</label>
+      <input asp-for="Nombre" type="text" class="form-control" id="" placeholder="Escriba nombre">
+    </div>
+    <div class="form-group">
+      <label asp-for="Apellido">Apellido</label>
+      <input asp-for="Apellido" type="text" class="form-control" id="" placeholder="Escriba Apellido">
+    </div>
+    <div class="form-group">
+      <label asp-for="Dni">Dni</label>
+      <input asp-for="Dni" type="text" class="form-control" id="" placeholder="Escriba dni">
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-4">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+
+</div>

@@ -67,6 +67,8 @@ public class InquilinoController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    
+
 
 
 
