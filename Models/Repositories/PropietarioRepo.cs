@@ -19,6 +19,43 @@ public class PropietarioRepo
 	{
 		connectionString = "Server=localhost;Database=inmobiliariaortiz_pascuali;Uid=root;Pwd=;";
 	}
+	public Propietario? buscarPropietario(int id)
+	{
+
+		Propietario? propietario = null;
+
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} 
+			FROM Propietarios
+			WHERE {nameof(Propietario.IdPropietario)} = @{nameof(Propietario.IdPropietario)}";
+
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue($"@{nameof(Propietario.IdPropietario)}", id);
+				connection.Open();
+				using (var reader = command.ExecuteReader())
+				{
+					if (reader.Read())
+					{
+						propietario = new Propietario
+						{
+							IdPropietario = reader.GetInt32(nameof(Propietario.IdPropietario)),
+							Nombre = reader.GetString(nameof(Propietario.Nombre)),
+							Apellido = reader.GetString(nameof(Propietario.Apellido)),
+							Dni = reader.GetString(nameof(Propietario.Dni)),
+
+						};
+
+
+					}
+
+				}
+
+			}
+		}
+		return propietario;
+	}
 
 	public IList<Propietario> getPropietarios()
 	{
@@ -83,6 +120,30 @@ public class PropietarioRepo
 		}
 		return id;
 	}
+
+	public int Modificar(Propietario p)
+	{
+		int res = -1;
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"UPDATE Propietarios 
+					SET Nombre=@nombre, Apellido=@apellido, Dni=@dni
+					WHERE IdPropietario = @id";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.CommandType = CommandType.Text;
+				command.Parameters.AddWithValue("@nombre", p.Nombre);
+				command.Parameters.AddWithValue("@apellido", p.Apellido);
+				command.Parameters.AddWithValue("@dni", p.Dni);
+				command.Parameters.AddWithValue("@id", p.IdPropietario);
+				connection.Open();
+				res = command.ExecuteNonQuery();
+				connection.Close();
+			}
+		}
+		return res;
+	}
+
 
 
 

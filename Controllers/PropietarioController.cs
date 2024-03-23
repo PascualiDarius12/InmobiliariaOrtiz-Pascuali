@@ -19,15 +19,33 @@ public class PropietarioController : Controller
         var listaPropietarios = pr.getPropietarios();
         return View(listaPropietarios);
     }
-    public IActionResult registrar()
+    public IActionResult editar(int id)
     {
+        //logica para mostrar el formulario vacio o lleno con el propietario que queremos editar
+        if (id > 0)
+        {
+            PropietarioRepo repo = new PropietarioRepo();
+            var propietario = repo.buscarPropietario(id);
+            return View(propietario);
+        }
+        else
+        {
+            return View();
+        }
 
-        return View();
+
     }
     public IActionResult Insertar(Propietario propietario)
     {
         PropietarioRepo repo = new PropietarioRepo();
-        repo.Insertar(propietario);
+        if(propietario.IdPropietario>0){
+             repo.Modificar(propietario);
+
+        }else{
+            repo.Insertar(propietario);
+        }
+        
+       
 
         return RedirectToAction(nameof(Index));
     }
