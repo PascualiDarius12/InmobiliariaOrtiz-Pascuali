@@ -38,14 +38,17 @@ public class PropietarioController : Controller
     public IActionResult Insertar(Propietario propietario)
     {
         PropietarioRepo repo = new PropietarioRepo();
-        if(propietario.IdPropietario>0){
-             repo.Modificar(propietario);
+        if (propietario.IdPropietario > 0)
+        {
+            repo.Modificar(propietario);
 
-        }else{
+        }
+        else
+        {
             repo.Insertar(propietario);
         }
-        
-       
+
+
 
         return RedirectToAction(nameof(Index));
     }
@@ -56,4 +59,24 @@ public class PropietarioController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
+    [HttpPost]
+    public IActionResult Eliminar(int id)
+    {
+        PropietarioRepo repo = new PropietarioRepo();
+        var resultado = repo.Eliminar(id);
+        if (resultado == -1)
+        {
+            TempData["Error"] = "Ocurrió un error al eliminar el propietario.";
+        }
+        return RedirectToAction(nameof(Index));
+    }
+
 }
+
+
+
+
+
+

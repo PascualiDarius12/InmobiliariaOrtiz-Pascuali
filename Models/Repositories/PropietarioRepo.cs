@@ -121,6 +121,12 @@ public class PropietarioRepo
 		return id;
 	}
 
+
+
+
+
+
+
 	public int Modificar(Propietario p)
 	{
 		int res = -1;
@@ -143,6 +149,28 @@ public class PropietarioRepo
 		}
 		return res;
 	}
+
+
+	public int Eliminar(int id)
+	{
+		int res = -1;
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			//por id hace la eliminacion
+			string sql = @"DELETE FROM Propietarios WHERE IdPropietario = @id";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue("@id", id);
+				connection.Open();
+				res = command.ExecuteNonQuery();
+				connection.Close();
+			}
+		}
+		return res;
+	}
+
+
+
 
 
 
