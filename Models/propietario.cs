@@ -2,13 +2,11 @@ namespace InmobiliariaOrtiz_Pascuali.Models;
 
 public class Propietario
 {
-    public int idPropietario { get; set; }
-    public string nombre { get; set; }= ""; //INICIALIZA CON UN VACIO 
-    public string? apellido { get; set; }
-    public string? dni { get; set; }
-    public bool estado { get; set; }
-
-    public Propietario() { } //Propietario
+    public int IdPropietario { get; set; }
+    public string? Nombre { get; set; }
+    public string? Apellido { get; set; }
+    public string? Dni { get; set; }
+    public bool Estado { get; set; }
 
 
 }

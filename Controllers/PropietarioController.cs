@@ -15,40 +15,27 @@ public class PropietarioController : Controller
 
     public IActionResult Index()
     {
-        PropietarioRepo repo = new PropietarioRepo();
-        List<Propietario> propietario = repo.ObtenerPropietarios();
-
-        return View(propietario);
+        PropietarioRepo pr = new PropietarioRepo();
+        var listaPropietarios = pr.getPropietarios();
+        return View(listaPropietarios);
     }
-
-[HttpGet]
-public ActionResult CrearPropietario()
+    public IActionResult registrar()
     {
+
         return View();
     }
-
-
-
-[HttpPost]
-    public ActionResult CrearPropietario(Propietario p)
+    public IActionResult Insertar(Propietario propietario)
     {
+        PropietarioRepo repo = new PropietarioRepo();
+        repo.Insertar(propietario);
 
-
-        try
-        {
-
-            PropietarioRepo repositorio = new PropietarioRepo();
-            repositorio.Alta(p);
-            return RedirectToAction("Index");
-        }
-        catch (System.Exception)
-        {
-            throw;
-        }
+        return RedirectToAction(nameof(Index));
     }
 
 
-
-
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
 }
-

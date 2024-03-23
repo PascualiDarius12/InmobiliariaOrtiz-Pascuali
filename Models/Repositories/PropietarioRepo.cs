@@ -1,72 +1,88 @@
-using System.ComponentModel.Design;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.X509.SigI;
 
 namespace InmobiliariaOrtiz_Pascuali.Models;
 
-
 public class PropietarioRepo
 {
-    protected readonly string connectionString;
 
-    public PropietarioRepo()
-    {
-        connectionString = "Server=localhost;User=root;Password=;Database=inmobiliariaortiz_pascuali;SslMode=none";
-    }
+	readonly string connectionString;
 
-   
+	public PropietarioRepo()
+	{
+		connectionString = "Server=localhost;Database=inmobiliariaortiz_pascuali;Uid=root;Pwd=;";
+	}
 
-    public List<Propietario> ObtenerPropietarios()
-    {
-        var propietario = new List<Propietario>();
+	public IList<Propietario> getPropietarios()
+	{
 
-        using (MySqlConnection conn = new MySqlConnection(connectionString))
-        {
-            var sql = "SELECT idPropietario, nombre, apellido, dni, estado FROM propietarios";
-            using (MySqlCommand cmd = new MySqlCommand(sql, conn))
-            {
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        propietario.Add(new Propietario
-                        {
-                            idPropietario = reader.GetInt32(0),
-                            nombre = reader.GetString(1),
-                            apellido = reader.GetString(2),
-                            dni = reader.GetString(3),
-                            estado = reader.GetBoolean(4)
+		var propietarios = new List<Propietario>();
 
-                        });
-                    }
-                }
-                conn.Close();
-            }
-        }
-        return propietario;
-    }
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} FROM Propietarios";
 
-public int Alta(Propietario p)
-{
-    int res = 0;
-    using (MySqlConnection conn = new MySqlConnection(connectionString))
-    {
-        var sql = "INSERT INTO propietarios (nombre, apellido, dni, estado) VALUES (@nombre, @apellido, @dni, 1); SELECT LAST_INSERT_ID();";
-        using (MySqlCommand cmd = new MySqlCommand(sql, conn))
-        {
-            conn.Open();
-            cmd.Parameters.AddWithValue("@nombre", p.nombre);
-            cmd.Parameters.AddWithValue("@apellido", p.apellido);
-            cmd.Parameters.AddWithValue("@dni", p.dni);
-            cmd.Parameters.AddWithValue("@estado", p.estado);
-            res = Convert.ToInt32(cmd.ExecuteScalar()); // cmd.ExecuteScalar();
-            p.idPropietario = res;
-            conn.Close();
-        }
-    }
-    return res;
-}
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
 
+				connection.Open();
+				using (var reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						propietarios.Add(new Propietario
+						{
+							IdPropietario = reader.GetInt32(nameof(Propietario.IdPropietario)),
+							Nombre = reader.GetString(nameof(Propietario.Nombre)),
+							Apellido = reader.GetString(nameof(Propietario.Apellido)),
+							Dni = reader.GetString(nameof(Propietario.Dni)),
+
+						});
+
+
+					}
+
+				}
+
+			}
+		}
+		return propietarios;
+	}
+
+	public int Insertar(Propietario propietario)
+	{
+		int id = 0;
+
+
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = $"INSERT INTO Propietarios ({nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)}) " +
+						  $"VALUES (@Nombre, @Apellido, @Dni); SELECT LAST_INSERT_ID();";
+
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+
+
+				command.Parameters.AddWithValue($"@{nameof(Propietario.Nombre)}", propietario.Nombre);
+				command.Parameters.AddWithValue($"@{nameof(Propietario.Apellido)}", propietario.Apellido);
+				command.Parameters.AddWithValue($"@{nameof(Propietario.Dni)}", propietario.Dni);
+
+				connection.Open();
+				id = Convert.ToInt32(command.ExecuteScalar());
+				propietario.IdPropietario = id;
+				connection.Close();
+
+			}
+		}
+		return id;
+	}
 
 
 

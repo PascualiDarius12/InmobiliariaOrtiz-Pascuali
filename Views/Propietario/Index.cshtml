@@ -1,69 +1,62 @@
-﻿@model List<InmobiliariaOrtiz_Pascuali.Models.Propietario>
+﻿@model IEnumerable<Propietario>
 @{
-    ViewData["Title"] = "Propietario";
+  ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Lista de PROPIETARIOS ()</h1>
-    
+<div class="row border my-4 rounded bg-white shadow-sm" id="">
+  <div class="d-flex flex-row bg-white rounded-top text-white w-100 align-items-center">
+    <div class="position-relative mx-1">
+      <input class="rounded-pill h6 p-2" placeholder="Dni" id="" name="" type="text">
+      <div class="d-flex align-items-center position-absolute end-0 top-50 px-2">
+        <i class="fa-solid fa-magnifying-glass fa-xs agrandar" style="color: rgba(0, 0, 0, 0.648);"
+          id="btnSearchUser"></i>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center p-3 w-100 align-items-end flex-column">
+      <a asp-action="registrar" asp-controller="Propietario">
 
+        <i class="fa-solid fa-plus text-dark agrandar h4" id="btnAddUser"></i>
+      </a>
+    </div>
+  </div>
 
-
-
-
-<table class="table">
+  <table class="table">
     <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>DNI</th>
-            <th>Estado</th>
-        </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Dni</th>
+        <th scope="col">Modificar</th>
+        <th scope="col">Borrar</th>
+      </tr>
     </thead>
     <tbody>
-        @foreach(var p in Model)
-        {
-            <tr>
-                <td>@p.nombre</td>
-                <td>@p.apellido</td>
-                <td>@p.dni</td>
-                <td>@p.estado</td>
-            </tr>
-        }
+      @foreach (var item in Model)
+      {
+
+        <tr>
+          <th scope="row">1</th>
+          <td>@item.Nombre</td>
+          <td>@item.Apellido</td>
+          <td>@item.Dni</td>
+          <td>
+            <div class="w-100">
+              <a href="" id="" class="">
+                <i class="fa-solid fa-pen px-1 text-warning"></i>
+              </a>
+            </div>
+          </td>
+          <td>
+            <div class="w-100">
+              <a href="" id="" class="">
+                <i class="fa-solid fa-circle-minus px-1 text-danger"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+
+      }
     </tbody>
-</table>
-
-
-<!--
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Dni</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Dario</td>
-            <td>Pascuali</td>
-            <td>40485036</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Wilson</td>
-            <td>Ortiz</td>
-            <td>34567890</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Joaquin</td>
-            <td>Ortega</td>
-            <td>Indocumentado</td>
-       
-
-
-
+  </table>
 </div>
