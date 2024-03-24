@@ -61,9 +61,10 @@ public class PropietarioController : Controller
     }
 
 
-    [HttpPost]
+    
     public IActionResult Eliminar(int id)
     {
+        Console.WriteLine(id);
         PropietarioRepo repo = new PropietarioRepo();
         var resultado = repo.Eliminar(id);
         if (resultado == -1)

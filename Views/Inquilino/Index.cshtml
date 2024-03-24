@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Inquilino>
 @{
-  ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 
@@ -48,11 +48,11 @@
                     </td>
                     <td>
                         <div class="w-100">
-                            <form method="post" action="@Url.Action("Eliminar", "Propietario", new { id = item.IdPropietario })" onsubmit="return confirm('¿Estás seguro de eliminar este propietario?');">
-                                <button type="submit" class="btn btn-link">
-                                    <i class="fa-solid fa-circle-minus px-1 text-danger"></i>
-                                </button>
-                            </form>
+
+                            <a asp-action="Eliminar" asp-route-id="@item.IdInquilino" title="Eliminar">
+                                <i class="fa-solid fa-circle-minus px-1 text-danger"></i>
+                            </a>
+
                         </div>
                     </td>
                 </tr>

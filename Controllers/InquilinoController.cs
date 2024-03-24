@@ -16,11 +16,12 @@ public class InquilinoController : Controller
    public IActionResult Index()
     {
         InquilinoRepo pr = new InquilinoRepo();
-        var listaInquilino = pr.getInquilino();
-        return View(listaInquilino);
+        var listaInquilinos = pr.GetInquilinos();
+        return View(listaInquilinos);
     }
     public IActionResult editar(int id)
     {
+        Console.WriteLine(id);
         //logica para mostrar el formulario vacio o lleno con el propietario que queremos editar
         if (id > 0)
         {
@@ -55,7 +56,7 @@ public class InquilinoController : Controller
 
 
 
-    [HttpPost]
+ 
     public IActionResult Eliminar(int id)
     {
         InquilinoRepo repo = new InquilinoRepo();

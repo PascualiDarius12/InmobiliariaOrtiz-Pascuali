@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-03-2024 a las 00:57:11
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 24-03-2024 a las 05:05:34
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,11 +64,18 @@ CREATE TABLE `inmueble` (
 
 CREATE TABLE `inquilino` (
   `idInquilino` int(11) NOT NULL,
-  `nombre` int(100) NOT NULL,
-  `apellido` int(100) NOT NULL,
-  `dni` int(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `dni` varchar(100) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `inquilino`
+--
+
+INSERT INTO `inquilino` (`idInquilino`, `nombre`, `apellido`, `dni`, `estado`) VALUES
+(1, 'Dario', 'jaime', '23123123', 0);
 
 -- --------------------------------------------------------
 
@@ -88,27 +95,16 @@ CREATE TABLE `pago` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `propietarios`
+-- Estructura de tabla para la tabla `propietario`
 --
 
-CREATE TABLE `propietarios` (
+CREATE TABLE `propietario` (
   `idPropietario` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(100) NOT NULL,
   `dni` varchar(50) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `propietarios`
---
-
-INSERT INTO `propietarios` (`idPropietario`, `nombre`, `apellido`, `dni`, `estado`) VALUES
-(1, 'Juan', 'Perez', '123456789', 1),
-(2, 'jorge', 'gutierrez', '36789153', 0),
-(3, 'alberto ', 'fernandez ', '256789452', 0),
-(4, 'julio', 'iglesias', '16789120', 1),
-(5, 'loco', 'amato', '123456780', 1);
 
 -- --------------------------------------------------------
 
@@ -160,9 +156,9 @@ ALTER TABLE `pago`
   ADD KEY `id_contrato` (`idContrato`);
 
 --
--- Indices de la tabla `propietarios`
+-- Indices de la tabla `propietario`
 --
-ALTER TABLE `propietarios`
+ALTER TABLE `propietario`
   ADD PRIMARY KEY (`idPropietario`);
 
 --
@@ -170,10 +166,16 @@ ALTER TABLE `propietarios`
 --
 
 --
--- AUTO_INCREMENT de la tabla `propietarios`
+-- AUTO_INCREMENT de la tabla `inquilino`
 --
-ALTER TABLE `propietarios`
-  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `inquilino`
+  MODIFY `idInquilino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `propietario`
+--
+ALTER TABLE `propietario`
+  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -183,14 +185,14 @@ ALTER TABLE `propietarios`
 -- Filtros para la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  ADD CONSTRAINT `contrato_ibfk_1` FOREIGN KEY (`idInquilino`) REFERENCES `inquilino` (`idInquilino`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `contrato_ibfk_2` FOREIGN KEY (`idInmueble`) REFERENCES `inmueble` (`idInmueble`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `contrato_ibfk_2` FOREIGN KEY (`idInmueble`) REFERENCES `inmueble` (`idInmueble`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `contrato_ibfk_3` FOREIGN KEY (`idInquilino`) REFERENCES `inquilino` (`idInquilino`);
 
 --
 -- Filtros para la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietarios` (`idPropietario`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietario` (`idPropietario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pago`

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jVEZd9h59BlpXZ8LRla/13UZY1Yf039coTJxi9gcXwo=",
+  "Hash": "uBf/kV8tSPVhbBdlYasCBVqnJFQcFBFpIO/jgJ8eAHs=",
   "Source": "InmobiliariaOrtiz-Pascuali",
   "BasePath": "_content/InmobiliariaOrtiz-Pascuali",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\images\\casa.jpg",
+      "SourceId": "InmobiliariaOrtiz-Pascuali",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\",
+      "BasePath": "_content/InmobiliariaOrtiz-Pascuali",
+      "RelativePath": "images/casa.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\casa.jpg"
     },
     {
       "Identity": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\js\\site.js",

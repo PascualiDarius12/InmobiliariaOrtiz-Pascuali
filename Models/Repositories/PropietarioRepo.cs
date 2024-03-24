@@ -27,7 +27,7 @@ public class PropietarioRepo
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
 			string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} 
-			FROM Propietarios
+			FROM Propietario
 			WHERE {nameof(Propietario.IdPropietario)} = @{nameof(Propietario.IdPropietario)}";
 
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -64,7 +64,7 @@ public class PropietarioRepo
 
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} FROM Propietarios";
+			string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} FROM Propietario";
 
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
@@ -100,7 +100,7 @@ public class PropietarioRepo
 
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			string sql = $"INSERT INTO Propietarios ({nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)}) " +
+			string sql = $"INSERT INTO Propietario ({nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)}) " +
 						  $"VALUES (@Nombre, @Apellido, @Dni); SELECT LAST_INSERT_ID();";
 
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -132,7 +132,7 @@ public class PropietarioRepo
 		int res = -1;
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			string sql = @"UPDATE Propietarios 
+			string sql = @"UPDATE Propietario 
 					SET Nombre=@nombre, Apellido=@apellido, Dni=@dni
 					WHERE IdPropietario = @id";
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -152,22 +152,22 @@ public class PropietarioRepo
 
 
 	public int Eliminar(int id)
-	{
-		int res = -1;
-		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			//por id hace la eliminacion
-			string sql = @"DELETE FROM Propietarios WHERE IdPropietario = @id";
-			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			int res = -1;
+			using (MySqlConnection connection = new MySqlConnection(connectionString))
 			{
-				command.Parameters.AddWithValue("@id", id);
-				connection.Open();
-				res = command.ExecuteNonQuery();
-				connection.Close();
+				string sql = "DELETE FROM Propietario WHERE IdPropietario = @id";
+				using (MySqlCommand command = new MySqlCommand(sql, connection))
+				{
+					command.CommandType = CommandType.Text;
+					command.Parameters.AddWithValue("@id", id);
+					connection.Open();
+					res = command.ExecuteNonQuery();
+					connection.Close();
+				}
 			}
+			return res;
 		}
-		return res;
-	}
 
 
 
