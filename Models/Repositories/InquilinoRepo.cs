@@ -51,7 +51,7 @@ public class InquilinoRepo
 	public IList<Inquilino> GetInquilinos()
 	{
 
-		var inquilionos = new List<Inquilino>();
+		var inquilinos = new List<Inquilino>();
 
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
@@ -65,13 +65,12 @@ public class InquilinoRepo
 				{
 					while (reader.Read())
 					{
-						inquilionos.Add(new Inquilino
+						inquilinos.Add(new Inquilino
 						{
-							IdInquilino = reader.GetInt32(nameof(Inquilino.IdInquilino)),
+							IdInquilino = reader.GetInt32(reader.GetOrdinal(nameof(Inquilino.IdInquilino))),
 							Nombre = reader.GetString(nameof(Inquilino.Nombre)),
 							Apellido = reader.GetString(nameof(Inquilino.Apellido)),
 							Dni = reader.GetString(nameof(Inquilino.Dni)),
-
 						});
 
 
@@ -81,7 +80,7 @@ public class InquilinoRepo
 
 			}
 		}
-		return inquilionos;
+		return inquilinos;
 	}
 
 	public int Insertar(Inquilino inquilino)
@@ -158,10 +157,5 @@ public class InquilinoRepo
 		}
 		return res;
 	}
-
-
-
-
-
 
 }
