@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-03-2024 a las 05:05:34
+-- Tiempo de generación: 26-03-2024 a las 19:38:07
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -75,7 +75,9 @@ CREATE TABLE `inquilino` (
 --
 
 INSERT INTO `inquilino` (`idInquilino`, `nombre`, `apellido`, `dni`, `estado`) VALUES
-(1, 'Dario', 'jaime', '23123123', 0);
+(2, 'Dario', 'Arabes', '23453657', 0),
+(5, 'Wilson', 'Gonzalo', '4234234234', 0),
+(6, 'Joaquin', 'Fredi', '2312312312', 0);
 
 -- --------------------------------------------------------
 
@@ -105,6 +107,15 @@ CREATE TABLE `propietario` (
   `dni` varchar(50) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `propietario`
+--
+
+INSERT INTO `propietario` (`idPropietario`, `nombre`, `apellido`, `dni`, `estado`) VALUES
+(3, 'Cardona', 'Pedrozo', '23423423', 0),
+(4, 'Walter', 'Gomez', '34567567', 0),
+(5, 'Carlos', 'Frank', '34234234', 0);
 
 -- --------------------------------------------------------
 
@@ -169,13 +180,13 @@ ALTER TABLE `propietario`
 -- AUTO_INCREMENT de la tabla `inquilino`
 --
 ALTER TABLE `inquilino`
-  MODIFY `idInquilino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idInquilino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `propietario`
 --
 ALTER TABLE `propietario`
-  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
