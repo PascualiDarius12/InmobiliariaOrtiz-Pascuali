@@ -23,7 +23,7 @@
 			</div>
 			<div class="form-group">
 				<label class="control-label">Propietario</label>
-				<select class="form-control" input asp-for="IdPropietario">
+				<select class="form-select" input asp-for="IdPropietario">
 					@foreach (var item in listaPropietarios)
 					{
 						<option value="@item.IdPropietario">@(item.Apellido+" "+item.Nombre+" "+item.IdPropietario)</option>
