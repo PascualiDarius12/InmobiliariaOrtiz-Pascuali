@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-03-2024 a las 19:38:07
+-- Tiempo de generación: 03-04-2024 a las 05:39:29
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -55,6 +55,15 @@ CREATE TABLE `inmueble` (
   `fechas_disponibles` varchar(100) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `inmueble`
+--
+
+INSERT INTO `inmueble` (`idInmueble`, `idPropietario`, `direccion`, `tipo`, `uso`, `cant_ambientes`, `coordenadas`, `precio`, `fechas_disponibles`, `estado`) VALUES
+(9, 4, 'Juana Koslay', '', '', 0, '2324.3423.4234', 500000, '', 0),
+(10, 5, 'Trapiche2', '', '', 0, '3434.45.65654.65', 470000, '', 0),
+(13, 4, 'La punta', '', '', 0, '2312.2312.213123', 140000, '', 0);
 
 -- --------------------------------------------------------
 
@@ -177,6 +186,12 @@ ALTER TABLE `propietario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `inmueble`
+--
+ALTER TABLE `inmueble`
+  MODIFY `idInmueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT de la tabla `inquilino`
 --
 ALTER TABLE `inquilino`
@@ -196,14 +211,13 @@ ALTER TABLE `propietario`
 -- Filtros para la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  ADD CONSTRAINT `contrato_ibfk_2` FOREIGN KEY (`idInmueble`) REFERENCES `inmueble` (`idInmueble`) ON UPDATE CASCADE,
   ADD CONSTRAINT `contrato_ibfk_3` FOREIGN KEY (`idInquilino`) REFERENCES `inquilino` (`idInquilino`);
 
 --
 -- Filtros para la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietario` (`idPropietario`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietario` (`idPropietario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pago`
