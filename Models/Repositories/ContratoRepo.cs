@@ -2,6 +2,7 @@ using System.Data;
 using InmobiliariaOrtiz_Pascuali.Models;
 using MySql.Data.MySqlClient;
 
+namespace InmobiliariaOrtiz_Pascuali.Models;
 public class ContratoRepo
 {
     readonly string connectionString;
@@ -44,38 +45,40 @@ public class ContratoRepo
 
 
 
-/*
-    public int Insertar(Inmueble inmueble)
+
+    public int Insertar(Contrato contrato)
     {
         int res = -1;
         using (var connection = new MySqlConnection(connectionString))
         {
-            string sql = @"INSERT INTO Inmueble 
-					(Direccion, Coordenadas, Precio, IdPropietario)
-					VALUES (@Direccion, @Coordenadas, @Precio, @IdPropietario);
-					SELECT LAST_INSERT_ID();";//devuelve el id insertado 
-            using (var command = new MySqlCommand(sql, connection))
-            {
-                command.CommandType = CommandType.Text;
-                command.Parameters.AddWithValue("@Direccion", inmueble.Direccion);
-                command.Parameters.AddWithValue("@Coordenadas", inmueble.Coordenadas);
-                command.Parameters.AddWithValue("@Precio", inmueble.Precio);
-                command.Parameters.AddWithValue("@IdPropietario", inmueble.IdPropietario);
-                connection.Open();
-                res = Convert.ToInt32(command.ExecuteScalar());
-                inmueble.IdInmueble = res;
-                connection.Close();
-            }
+            string sql = @"INSERT INTO Contrato (Fecha_inicio, Fecha_fin, idInquilino, idInmueble)
+    VALUES (@Fecha_inicio, @Fecha_fin, @idInquilino, @idInmueble);SELECT LAST_INSERT_ID();";
+
+        using (var command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddWithValue("@Fecha_inicio", contrato.Fecha_inicio);
+            command.Parameters.AddWithValue("@Fecha_fin", contrato.Fecha_fin);
+            command.Parameters.AddWithValue("@idInquilino", contrato.idInquilino);
+            command.Parameters.AddWithValue("@idInmueble", contrato.idInmueble);
+            
+            connection.Open();
+            res = Convert.ToInt32(command.ExecuteScalar());
+            contrato.idContrato = res;
+            connection.Close();
+        }
+
         }
         return res;
     }
+
+
 
     public int Eliminar(int id)
     {
         int res = -1;
         using (var connection = new MySqlConnection(connectionString))
         {
-            string sql = @$"DELETE FROM Inmueble WHERE IdInmueble = @id";
+            string sql = @$"DELETE FROM Contrato WHERE idContrato = @id";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 command.CommandType = CommandType.Text;
@@ -88,16 +91,16 @@ public class ContratoRepo
         return res;
     }
 
-    public Inmueble BuscarInmueble(int id)
+/*
+    public Contrato BuscarContrato(int id)
     {
-        Inmueble entidad = null;
+        Contrato entidad = null;
         using (var connection = new MySqlConnection(connectionString))
         {
-            string sql = @"
-    SELECT i.IdInmueble, i.Direccion, i.Coordenadas, i.Precio, i.IdPropietario, p.Nombre, p.Apellido
-    FROM Inmueble i 
-    JOIN Propietario p ON i.IdPropietario = p.IdPropietario
-    WHERE i.IdInmueble = @id";
+            string sql = @"SELECT i.IdContrato, i.Direccion, i.Coordenadas, i.Precio, i.IdPropietario, p.Nombre, p.Apellido
+            FROM Contrato i 
+            JOIN Propietario p ON i.IdPropietario = p.IdPropietario
+            WHERE i.IdContrato = @id";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
@@ -126,22 +129,75 @@ public class ContratoRepo
         }
         return entidad;
     }
+*/
 
-    public int ModificarInmueble(Inmueble entidad)
+public Contrato BuscarContrato(int id)
+{
+    Contrato entidad = null;
+    using (var connection = new MySqlConnection(connectionString))
+    {
+        string sql = @"
+            SELECT 
+                c.idContrato, c.Fecha_inicio, c.Fecha_fin, c.idInquilino, i.Nombre AS NombreInquilino, i.Apellido AS ApellidoInquilino, 
+                c.idInmueble, m.Direccion AS DireccionInmueble, m.Precio AS PrecioInmueble
+            FROM 
+                Contrato c
+                INNER JOIN Inquilino i ON c.idInquilino = i.IdInquilino
+                INNER JOIN Inmueble m ON c.idInmueble = m.IdInmueble
+            WHERE c.idContrato = @id";
+
+        using (MySqlCommand command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddWithValue("@id", id);
+            command.CommandType = CommandType.Text;
+            connection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                entidad = new Contrato
+                {
+                    idContrato = reader.GetInt32("idContrato"),
+                    Fecha_inicio = reader.GetDateTime("Fecha_inicio"),
+                    Fecha_fin = reader.GetDateTime("Fecha_fin"),
+                    idInquilino = reader.GetInt32("idInquilino"),
+                    objetoInquilino = new Inquilino
+                    {
+                        idInquilino = reader.GetInt32("idInquilino"),
+                        Nombre = reader.GetString("NombreInquilino"),
+                        Apellido = reader.GetString("ApellidoInquilino")
+                    },
+                    idInmueble = reader.GetInt32("idInmueble"),
+                    objetoInmueble = new Inmueble
+                    {
+                        idInmueble = reader.GetInt32("idInmueble"),
+                        Direccion = reader.GetString("DireccionInmueble"),
+                        Precio = reader.GetInt32("PrecioInmueble")
+                    }
+                };
+            }
+            connection.Close();
+        }
+    }
+    return entidad;
+}
+
+
+
+    public int ModificarContrato(Contrato contrato)
     {
         int res = -1;
         using (var connection = new MySqlConnection(connectionString))
         {
-            string sql = "UPDATE Inmueble SET " +
-"Direccion=@direccion, Coordenadas=@coordenadas, Precio=@precio, IdPropietario=@idPropietario " +
-"WHERE IdInmueble = @id";
+            string sql = "UPDATE Contrato SET " +
+                "idContrato=@idContrato, Fecha_inicio=@Fecha_inicio, Fecha_fin=@Fecha_fin, idInquilino=@idInquilino, idInmueble=@idInmueble" +
+                "WHERE idContrato = @id";
             using (MySqlCommand command = new MySqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@direccion", entidad.Direccion);
-                command.Parameters.AddWithValue("@coordenadas", entidad.Coordenadas);
-                command.Parameters.AddWithValue("@precio", entidad.Precio);
-                command.Parameters.AddWithValue("@idPropietario", entidad.IdPropietario);
-                command.Parameters.AddWithValue("@id", entidad.IdInmueble);
+                command.Parameters.AddWithValue("@id", contrato.idContrato);
+                command.Parameters.AddWithValue("@Fecha_inicio", contrato.Fecha_inicio);
+                command.Parameters.AddWithValue("@Fecha_fin", contrato.Fecha_fin);
+                command.Parameters.AddWithValue("@idInquilino", contrato.idInquilino);
+                command.Parameters.AddWithValue("@idInmueble", contrato.idInmueble);
                 command.CommandType = CommandType.Text;
                 connection.Open();
                 res = command.ExecuteNonQuery();
@@ -152,5 +208,5 @@ public class ContratoRepo
     }
 
 
-*/
+
 }

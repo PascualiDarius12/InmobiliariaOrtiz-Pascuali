@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
+using InmobiliariaOrtiz_Pascuali.Models;
 
 namespace InmobiliariaOrtiz_Pascuali.Models
 {

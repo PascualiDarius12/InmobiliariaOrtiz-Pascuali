@@ -1,0 +1,36 @@
+@model Contrato
+
+@{
+    ViewData["Title"] = "Editar contrato";
+    var listaInquilinos= (IList<Inquilino>)ViewBag.inquilinos;
+}
+
+<div class="w-100 d-flex justify-content-center">
+    <form asp-action="Insertar" class="w-50">
+        <p>Editar contrato:</p>
+        <div class="form-group">
+           <input asp-for="idContrato" type="text" class="form-control" id="" readonly>
+        </div>
+        
+        <div class="form-group">
+				<label class="control-label">Inquilino</label>
+				<select class="form-select" input asp-for="idInquilino">
+					@foreach (var item in listaInquilinos)
+					{
+						<option value="@item.idInquilino">@(item.Apellido+" "+item.Nombre+" ")</option>
+					}
+				</select>
+		</div>
+
+
+
+
+
+
+       
+       
+        <div class="w-100 d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+</div>

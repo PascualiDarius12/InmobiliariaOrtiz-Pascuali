@@ -17,13 +17,13 @@ public class InquilinoRepo
 
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			string sql = @$"SELECT {nameof(Inquilino.IdInquilino)}, {nameof(Inquilino.Nombre)}, {nameof(Inquilino.Apellido)}, {nameof(Inquilino.Dni)} 
+			string sql = @$"SELECT {nameof(Inquilino.idInquilino)}, {nameof(Inquilino.Nombre)}, {nameof(Inquilino.Apellido)}, {nameof(Inquilino.Dni)} 
 			FROM Inquilino
-			WHERE {nameof(Inquilino.IdInquilino)} = @{nameof(Inquilino.IdInquilino)}";
+			WHERE {nameof(Inquilino.idInquilino)} = @{nameof(Inquilino.idInquilino)}";
 
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
-				command.Parameters.AddWithValue($"@{nameof(Inquilino.IdInquilino)}", id);
+				command.Parameters.AddWithValue($"@{nameof(Inquilino.idInquilino)}", id);
 				connection.Open();
 				using (var reader = command.ExecuteReader())
 				{
@@ -31,7 +31,7 @@ public class InquilinoRepo
 					{
 						inquilino = new Inquilino
 						{
-							IdInquilino = reader.GetInt32(nameof(Inquilino.IdInquilino)),
+							idInquilino = reader.GetInt32(nameof(Inquilino.idInquilino)),
 							Nombre = reader.GetString(nameof(Inquilino.Nombre)),
 							Apellido = reader.GetString(nameof(Inquilino.Apellido)),
 							Dni = reader.GetString(nameof(Inquilino.Dni)),
@@ -55,7 +55,7 @@ public class InquilinoRepo
 
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			string sql = @$"SELECT {nameof(Inquilino.IdInquilino)}, {nameof(Inquilino.Nombre)}, {nameof(Inquilino.Apellido)}, {nameof(Inquilino.Dni)} FROM Inquilino";
+			string sql = @$"SELECT {nameof(Inquilino.idInquilino)}, {nameof(Inquilino.Nombre)}, {nameof(Inquilino.Apellido)}, {nameof(Inquilino.Dni)} FROM Inquilino";
 
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
@@ -67,7 +67,7 @@ public class InquilinoRepo
 					{
 						inquilinos.Add(new Inquilino
 						{
-							IdInquilino = reader.GetInt32(reader.GetOrdinal(nameof(Inquilino.IdInquilino))),
+							idInquilino = reader.GetInt32(reader.GetOrdinal(nameof(Inquilino.idInquilino))),
 							Nombre = reader.GetString(nameof(Inquilino.Nombre)),
 							Apellido = reader.GetString(nameof(Inquilino.Apellido)),
 							Dni = reader.GetString(nameof(Inquilino.Dni)),
@@ -102,7 +102,7 @@ public class InquilinoRepo
 				command.Parameters.AddWithValue($"@{nameof(Inquilino.Dni)}", inquilino.Dni);
 				connection.Open();
 				id = Convert.ToInt32(command.ExecuteScalar());
-				inquilino.IdInquilino = id;
+				inquilino.idInquilino = id;
 				connection.Close();
 
 			}
@@ -130,7 +130,7 @@ public class InquilinoRepo
 				command.Parameters.AddWithValue("@nombre", i.Nombre);
 				command.Parameters.AddWithValue("@apellido", i.Apellido);
 				command.Parameters.AddWithValue("@dni", i.Dni);
-				command.Parameters.AddWithValue("@id", i.IdInquilino);
+				command.Parameters.AddWithValue("@id", i.idInquilino);
 				connection.Open();
 				res = command.ExecuteNonQuery();
 				connection.Close();
