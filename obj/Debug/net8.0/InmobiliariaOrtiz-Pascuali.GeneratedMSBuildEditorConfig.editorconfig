@@ -9,71 +9,83 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = InmobiliariaOrtiz_Pascuali
 build_property.RootNamespace = InmobiliariaOrtiz_Pascuali
-build_property.ProjectDir = C:\Users\wilso\Desktop\universidad 2024\.net\InmobiliariaOrtiz-Pascuali\
+build_property.ProjectDir = C:\Users\54266\Desktop\Carpetas\Estudio\Desarrollo de Software\Laboratorio 2\repositorio\InmobiliariaOrtiz-Pascuali\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\wilso\Desktop\universidad 2024\.net\InmobiliariaOrtiz-Pascuali
+build_property.MSBuildProjectDirectory = C:\Users\54266\Desktop\Carpetas\Estudio\Desarrollo de Software\Laboratorio 2\repositorio\InmobiliariaOrtiz-Pascuali
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Home/Index.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Contrato/editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cZWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Contrato/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Contrato/registrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9ccmVnaXN0cmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Inmueble/editar.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Inmueble/editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVcZWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Inmueble/Index.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Inmueble/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Inmueble/registrar.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Inmueble/registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVccmVnaXN0cmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Inquilino/editar.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Inquilino/editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXGVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Inquilino/Index.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Inquilino/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Inquilino/registrar.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Inquilino/registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXHJlZ2lzdHJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Propietario/editar.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Propietario/editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9cZWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Propietario/Index.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Propietario/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Propietario/registrar.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Propietario/registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9ccmVnaXN0cmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Shared/Error.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/_ViewImports.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/_ViewStart.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wilso/Desktop/universidad 2024/.net/InmobiliariaOrtiz-Pascuali/Views/Shared/_Layout.cshtml]
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-p1xq7ihahr

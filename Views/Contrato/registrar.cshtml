@@ -1,28 +1,45 @@
-@model Contrato
-
+﻿@model Contrato
 @{
-    ViewData["Title"] = "Registrar contrato";
+    ViewData["Title"] = "Registrar Inmueble";
+    var listaInquilinos = (IList<Inquilino>)ViewBag.Inquilinos;
+	var listaInmuebles = (IList<Inmueble>)ViewBag.Inmuebles;
 }
 
-<div class="w-100 d-flex justify-content-center">
-    <form asp-action="Insertar" class="w-50">
-        <p>Registrar contrato:</p>
-        <div class="form-group">
-           <input asp-for="idContrato" type="text" class="form-control" readonly>
-        </div>
-        
-        <div class="form-group">
-            <label class="control-label">Inquilino</label>
-            <select class="form-select" asp-for="idInquilino">
-                @foreach (var item in ViewBag.Inquilino)
-                {
-                    <option value="@item.IdInquilino">@item.Apellido @item.Nombre</option>
-                }
-            </select>
-        </div>
-       
-        <div class="w-100 d-flex justify-content-center mt-4">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-    </form>
+
+<div class="row w-100 justify-content-center">
+	<div class="col-md-4">
+		<form asp-action="Insertar">
+            <p>Registrar Contrato:</p>
+			<div class="form-group">
+				<label asp-for="Fecha_inicio" class="control-label"></label>
+				<input asp-for="Fecha_inicio" class="form-control" type="date" />
+			</div>
+			<div class="form-group">
+				<label asp-for="Fecha_fin" class="control-label"></label>
+				<input asp-for="Fecha_fin" class="form-control" type="date" />
+			</div>
+			<div class="form-group">
+				<label class="control-label">Inquilino</label>
+				<select class="form-select" input asp-for="IdInquilino">
+					@foreach (var item in listaInquilinos)
+					{
+						<option value="@item.IdInquilino">@(item.Apellido+" "+item.Nombre+" "+item.IdInquilino)</option>
+					}
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Inmueble</label>
+				<select class="form-select" input asp-for="IdInmueble">
+					@foreach (var item in listaInmuebles)
+					{
+						<option value="@item.IdInmueble">@(item.Direccion+"/"+item.Coordenadas+"/"+item.IdInmueble)</option>
+					}
+				</select>
+			</div>
+			<div class="form-group m-3">
+				<button type="submit" class="btn btn-primary">Guardar</button>
+				<a class="btn btn-secondary" asp-action="Index">Volver</a>
+			</div>
+		</form>
+	</div>
 </div>

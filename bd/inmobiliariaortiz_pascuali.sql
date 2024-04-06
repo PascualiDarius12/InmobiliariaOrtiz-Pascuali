@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-04-2024 a las 05:39:29
+-- Tiempo de generación: 06-04-2024 a las 19:49:19
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -30,12 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `contrato` (
   `idContrato` int(11) NOT NULL,
   `idInquilino` int(11) NOT NULL,
-  `idInmueble` int(11) NOT NULL,
+  `idInmueble` int(11) DEFAULT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   `multa` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `contrato`
+--
+
+INSERT INTO `contrato` (`idContrato`, `idInquilino`, `idInmueble`, `fecha_inicio`, `fecha_fin`, `multa`, `estado`) VALUES
+(9, 5, 21, '2024-04-06', '2024-09-06', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -50,8 +57,8 @@ CREATE TABLE `inmueble` (
   `tipo` varchar(100) NOT NULL,
   `uso` varchar(100) NOT NULL,
   `cant_ambientes` int(11) NOT NULL,
+  `precio` double NOT NULL,
   `coordenadas` varchar(100) NOT NULL,
-  `precio` int(11) NOT NULL,
   `fechas_disponibles` varchar(100) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -60,10 +67,8 @@ CREATE TABLE `inmueble` (
 -- Volcado de datos para la tabla `inmueble`
 --
 
-INSERT INTO `inmueble` (`idInmueble`, `idPropietario`, `direccion`, `tipo`, `uso`, `cant_ambientes`, `coordenadas`, `precio`, `fechas_disponibles`, `estado`) VALUES
-(9, 4, 'Juana Koslay', '', '', 0, '2324.3423.4234', 500000, '', 0),
-(10, 5, 'Trapiche2', '', '', 0, '3434.45.65654.65', 470000, '', 0),
-(13, 4, 'La punta', '', '', 0, '2312.2312.213123', 140000, '', 0);
+INSERT INTO `inmueble` (`idInmueble`, `idPropietario`, `direccion`, `tipo`, `uso`, `cant_ambientes`, `precio`, `coordenadas`, `fechas_disponibles`, `estado`) VALUES
+(21, 3, 'Juana Koslay', '', '', 0, 200000, '3434.45.65654.65', '', 0);
 
 -- --------------------------------------------------------
 
@@ -186,10 +191,16 @@ ALTER TABLE `propietario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `contrato`
+--
+ALTER TABLE `contrato`
+  MODIFY `idContrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT de la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  MODIFY `idInmueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idInmueble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `inquilino`
@@ -211,19 +222,14 @@ ALTER TABLE `propietario`
 -- Filtros para la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  ADD CONSTRAINT `contrato_ibfk_3` FOREIGN KEY (`idInquilino`) REFERENCES `inquilino` (`idInquilino`);
+  ADD CONSTRAINT `ContratoInmueble` FOREIGN KEY (`idInmueble`) REFERENCES `inmueble` (`idInmueble`) ON DELETE SET NULL,
+  ADD CONSTRAINT `ContratoInquilino` FOREIGN KEY (`idInquilino`) REFERENCES `inquilino` (`idInquilino`);
 
 --
 -- Filtros para la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
   ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`idPropietario`) REFERENCES `propietario` (`idPropietario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `pago`
---
-ALTER TABLE `pago`
-  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`idContrato`) REFERENCES `contrato` (`idContrato`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

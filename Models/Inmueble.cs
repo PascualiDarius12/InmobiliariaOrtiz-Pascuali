@@ -9,7 +9,7 @@ public class Inmueble
     public string Uso { get; set; }
     public DateTime[] FechaDisponible { get; set; }
     public int CantAmbientes { get; set; }
-    public int Precio { get; set; }
+    public double Precio { get; set; }
     public bool Estado { get; set; }
     public int IdPropietario { get; set; }
     public Propietario? propietario { get; set; }
