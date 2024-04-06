@@ -1,0 +1,39 @@
+﻿@model Contrato
+@{
+	ViewData["Title"] = "Detalle Contrato";
+	Propietario propietario = ViewBag.Propietario;
+
+}
+
+<p class="font-weight-bold">Detalle Contrato:</p>
+<div class="row d-inline justify-content-center">
+	<div class="col-md-4 card">
+
+		<div class="">
+			<p class="font-weight-bold">Fecha de Inicio: @Model.Fecha_inicio.ToString("dd/MM/yyyy")</p>
+		</div>
+		<div class="">
+			<p>Fecha de Finalizacion: @Model.Fecha_fin.ToString("dd/MM/yyyy")</p>
+		</div>
+		<div class="">
+			<p>Inquilino: @(Model.inquilino.Apellido + " " + Model.inquilino.Nombre)</p>
+		</div>
+		<div class="">
+			<p>Propietario: @(propietario.Apellido + " " + propietario.Nombre)</p>
+		</div>
+		<div class="">
+			<p>Direccion: @Model.inmueble.Direccion</p>
+		</div>
+		<div class="">
+			<p>Coordenadas: @Model.inmueble.Coordenadas</p>
+		</div>
+		<div class="">
+			<p>Precio por mes: @Model.inmueble.Precio</p>
+		</div>
+
+	</div>
+
+</div>
+<div class=" m-3">
+	<a class="btn btn-secondary" asp-action="Index">Volver</a>
+</div>

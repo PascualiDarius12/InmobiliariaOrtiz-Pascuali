@@ -88,6 +88,15 @@ public class ContratoController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    public IActionResult Detalle(int id){
+        ContratoRepo repo = new ContratoRepo();
+        Contrato contrato = repo.BuscarContrato(id);
+        PropietarioRepo pr = new PropietarioRepo();
+        ViewBag.Propietario = pr.buscarPropietario(contrato.inmueble.IdPropietario);
+
+        return View(contrato);
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

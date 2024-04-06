@@ -40,7 +40,7 @@ public class ContratoRepo
 						IdInquilino = reader.GetInt32(6),
 						inquilino = new Inquilino
 						{
-							IdInquilino= reader.GetInt32(6),
+							IdInquilino = reader.GetInt32(6),
 							Nombre = reader.GetString(7),
 							Apellido = reader.GetString(8),
 							Dni = reader.GetString(9)
@@ -118,7 +118,7 @@ public class ContratoRepo
 		using (var connection = new MySqlConnection(connectionString))
 		{
 			string sql = @"SELECT c.IdContrato, c.fecha_inicio, c.fecha_fin, c.multa, c.estado, c.IdInmueble, c.IdInquilino,
-                       i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, inm.Precio
+                       i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, inm.Precio, inm.IdPropietario
                        FROM Contrato c
                        INNER JOIN Inquilino i ON i.IdInquilino = c.IdInquilino 
 					   INNER JOIN Inmueble inm ON inm.IdInmueble = c.IdInmueble
@@ -152,7 +152,8 @@ public class ContratoRepo
 							IdInmueble = reader.GetInt32(6),
 							Direccion = reader.GetString(10),
 							Coordenadas = reader.GetString(11),
-							Precio = reader.GetDouble(12)
+							Precio = reader.GetDouble(12),
+							IdPropietario = reader.GetInt32(13)
 						}
 					};
 				}

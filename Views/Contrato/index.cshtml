@@ -31,6 +31,7 @@
                 <th scope="col">Pagos</th>
                 <th scope="col">Modificar</th>
                 <th scope="col">Borrar</th>
+                <th scope="col">Ver mas</th>
             </tr>
         </thead>
         <tbody>
@@ -55,6 +56,15 @@
 
                             <a asp-action="Eliminar" asp-route-id="@item.IdContrato" title="Eliminar">
                                 <i class="fa-solid fa-circle-minus px-1 text-danger"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w-100">
+
+                            <a asp-action="Detalle" asp-route-id="@item.IdContrato" title="Ver mas">
+                                <i class="fa-solid fa-circle-info px-1 text-primary"></i>
                             </a>
 
                         </div>
