@@ -1,15 +1,14 @@
 ﻿@model Contrato
 @{
-    ViewData["Title"] = "Registrar Contrato";
-    var listaInquilinos = (IList<Inquilino>)ViewBag.Inquilinos;
+	ViewData["Title"] = "Editar Contrato";
+	var listaInquilinos = (IList<Inquilino>)ViewBag.Inquilinos;
 	var listaInmuebles = (IList<Inmueble>)ViewBag.Inmuebles;
 }
-
 
 <div class="row w-100 justify-content-center">
 	<div class="col-md-4">
 		<form asp-action="Modificar">
-            <p>Modificar Contrato:</p>
+            <p>Detalle Contrato:</p>
 			<div class="form-group d-none">
                 <input asp-for="IdContrato" type="text" class="form-control" id="" readonly>
             </div>
@@ -47,3 +46,6 @@
 		</form>
 	</div>
 </div>
+
+
+

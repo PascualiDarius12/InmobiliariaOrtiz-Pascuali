@@ -21,6 +21,7 @@ public class ContratoController : Controller
        
         ContratoRepo Cr = new ContratoRepo();
         var listaContratos = Cr.ObtenerTodos();
+        
 
         
         return View(listaContratos);
@@ -95,7 +96,13 @@ public class ContratoController : Controller
         ViewBag.Propietario = pr.buscarPropietario(contrato.inmueble.IdPropietario);
 
         return View(contrato);
+        
     }
+
+
+
+    
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

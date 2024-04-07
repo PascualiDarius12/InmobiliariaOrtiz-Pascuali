@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Contrato>
+
 @{
     ViewData["Title"] = "Home Page";
+    
 }
 
 
@@ -43,7 +45,9 @@
                     <td>@(item.inquilino.Nombre+" "+ item.inquilino.Apellido)</td>
                     <td>@item.inmueble.Direccion</td>
                     <td>@item.inmueble.Coordenadas</td>
-                    <td>@("-/"+(((item.Fecha_fin.Year - item.Fecha_inicio.Year) * 12) + item.Fecha_fin.Month - item.Fecha_inicio.Month))</td>
+                    <td>
+                       -/@item.pagos.Count()
+                    </td>
                     <td>
                         <div class="w-100">
                             <a asp-action="Editar" asp-route-id="@item.IdContrato" title="Editar">
