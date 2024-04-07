@@ -14,22 +14,24 @@
 </head>
 
 <body>
-    <div class="container-fluid d-flex flex-row">
-        <div class="w-50">
 
-        <a asp-area="" asp-controller="Home" asp-action="Index">
-            <img style="width: 155px; height: 60px;" src="~/images/logo.png" alt="Home" />
-        </a>
-        </div>
-        <div class="w-50 d-flex justify-content-end">
-            <i class="fa-brands fa-instagram m-3 h3"></i>
-            <i class="fa-brands fa-square-facebook m-3 h3"></i>
-            <i class="fa-brands fa-youtube m-3 h3"></i>
-        </div>
-    </div>
 
-    <header style="background-color: #071658; height: 70px;">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+    <header class="w-100 position-fixed">
+        <div class="container-fluid d-flex flex-row w-100 bg-white">
+            <div class="w-50">
+
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img style="width: 155px; height: 60px;" src="~/images/logo.png" alt="Home" />
+                </a>
+            </div>
+            <div class="w-50 d-flex justify-content-end">
+                <i class="fa-brands fa-instagram m-3 h3"></i>
+                <i class="fa-brands fa-square-facebook m-3 h3"></i>
+                <i class="fa-brands fa-youtube m-3 h3"></i>
+            </div>
+        </div>
+        <nav style="background-color: #071658; height: 70px;"
+            class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
 
             <div class="container-fluid">
 
