@@ -261,3 +261,9 @@ __pycache__/
 *.pyc
 .vscode/*
 bin/Debug/net8.0/InmobiliariaOrtiz-Pascuali.dll
+bin/Debug/net8.0/InmobiliariaOrtiz-Pascuali.dll
+*.exe
+*.pdb
+*.dll
+*.cache
+*.json

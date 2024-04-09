@@ -26,8 +26,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cZWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Contrato/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cSW5kZXguY3NodG1s
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Contrato/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9caW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Contrato/Pagar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cUGFnYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Contrato/registrar.cshtml]
@@ -60,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Inquilino/registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXHJlZ2lzdHJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Pago/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xpbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/54266/Desktop/Carpetas/Estudio/Desarrollo de Software/Laboratorio 2/repositorio/InmobiliariaOrtiz-Pascuali/Views/Propietario/editar.cshtml]
