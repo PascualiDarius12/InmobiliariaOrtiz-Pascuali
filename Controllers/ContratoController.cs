@@ -100,6 +100,21 @@ public class ContratoController : Controller
 
     }
 
+     public IActionResult Pagos(int id)
+
+
+    {
+
+
+        ContratoRepo Cr = new ContratoRepo();
+        var listaPagos = Cr.ObtenerPagos(id);
+        
+
+
+
+        return View(listaPagos);
+    }
+
 
 
     //metodo para pagar un contrato de alquiler

@@ -26,7 +26,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Abonar</th>
+                
                 <th scope="col">#</th>
                 <th scope="col">Fecha Inicio/Fin</th>
                 <th scope="col">Inquilino</th>
@@ -36,17 +36,13 @@
                 <th scope="col">Modificar</th>
                 <th scope="col">Borrar</th>
                 <th scope="col">Ver mas</th>
+                <th scope="col">Abonar</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
-                        <!-- Agregar el botón de abonar -->
-                        <a href="/Contrato/Pagar/@item.IdContrato" class="btn btn-primary">Abonar</a>
-                    </td>
-                    <!-- Otras columnas del contrato -->
                     <th scope="row">@item.IdContrato</th>
                     <td>@(item.Fecha_inicio.ToString("dd/MM/yyyy")+"-"+item.Fecha_fin.ToString("dd/MM/yyyy"))</td>
                     <td>@(item.inquilino.Nombre+" "+ item.inquilino.Apellido)</td>
@@ -73,6 +69,13 @@
                         <div class="w-100">
                             <a asp-action="Detalle" asp-route-id="@item.IdContrato" title="Ver mas">
                                 <i class="fa-solid fa-circle-info px-1 text-primary"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w-100">
+                            <a asp-action="Pagos" asp-route-id="@item.IdContrato" title="Ver mas">
+                                <i class="fa-solid fa-money-bill px-1 text-success"></i>
                             </a>
                         </div>
                     </td>
