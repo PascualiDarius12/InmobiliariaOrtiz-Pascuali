@@ -1,10 +1,11 @@
-﻿@model IEnumerable<Contrato>
+﻿
+
+
+@model IEnumerable<Contrato>
 
 @{
     ViewData["Title"] = "Home Page";
-    
 }
-
 
 <div class="row border my-4 mx-5 rounded bg-white shadow-sm" id="">
     <div class="d-flex flex-row bg-white rounded-top text-white w-100 align-items-center">
@@ -25,6 +26,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th scope="col">Abonar</th>
                 <th scope="col">#</th>
                 <th scope="col">Fecha Inicio/Fin</th>
                 <th scope="col">Inquilino</th>
@@ -40,13 +42,18 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        <!-- Agregar el botón de abonar -->
+                        <a href="/Contrato/Pagar/@item.IdContrato" class="btn btn-primary">Abonar</a>
+                    </td>
+                    <!-- Otras columnas del contrato -->
                     <th scope="row">@item.IdContrato</th>
                     <td>@(item.Fecha_inicio.ToString("dd/MM/yyyy")+"-"+item.Fecha_fin.ToString("dd/MM/yyyy"))</td>
                     <td>@(item.inquilino.Nombre+" "+ item.inquilino.Apellido)</td>
                     <td>@item.inmueble.Direccion</td>
                     <td>@item.inmueble.Coordenadas</td>
                     <td>
-                       -/@item.pagos.Count()
+                        -/@item.pagos.Count()
                     </td>
                     <td>
                         <div class="w-100">
@@ -57,20 +64,16 @@
                     </td>
                     <td>
                         <div class="w-100">
-
                             <a asp-action="Eliminar" asp-route-id="@item.IdContrato" title="Eliminar">
                                 <i class="fa-solid fa-circle-minus px-1 text-danger"></i>
                             </a>
-
                         </div>
                     </td>
                     <td>
                         <div class="w-100">
-
                             <a asp-action="Detalle" asp-route-id="@item.IdContrato" title="Ver mas">
                                 <i class="fa-solid fa-circle-info px-1 text-primary"></i>
                             </a>
-
                         </div>
                     </td>
                 </tr>
@@ -78,3 +81,4 @@
         </tbody>
     </table>
 </div>
+

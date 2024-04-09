@@ -1,0 +1,39 @@
+@model Contrato
+
+@{
+    ViewData["Title"] = "Pagar Contrato";
+}
+
+<h1 class="text-center">Pagar Contrato</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="2" class="text-center">Detalles del Contrato</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Id Contrato:</th>
+                <td>@Model.IdContrato</td>
+            </tr>
+            <tr>
+                <th>Fecha de Inicio:</th>
+                <td>@Model.Fecha_inicio.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <th>Fecha de Fin:</th>
+                <td>@Model.Fecha_fin.ToString("dd/MM/yyyy")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+                      <!-- Formulario de pago -->
+    <form method="post" action="/Contrato/RealizarPago">
+        <input type="hidden" name="contratoId" value="@Model.IdContrato" />
+        <button type="submit" class="btn btn-primary">Realizar Pago</button>
+    </form>
+</div>

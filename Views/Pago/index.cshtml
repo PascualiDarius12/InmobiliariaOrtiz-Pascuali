@@ -1,0 +1,35 @@
+@model IList<InmobiliariaOrtiz_Pascuali.Models.Pago>
+
+@{
+    ViewData["Title"] = "Lista de Pagos";
+}
+
+<div class="container text-center">
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="row border my-4 mx-5 rounded bg-white shadow-sm">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Número de Pago</th>
+                    <th scope="col">Número de Contrato</th>
+                    <th scope="col">Monto del Pago</th>
+                    <th scope="col">Mes de Pago</th>
+                    <th scope="col">Estado de Pago</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pago in Model)
+                {
+                    <tr>
+                        <td>@pago.IdPago</td>
+                        <td>@pago.IdContrato</td>
+                        <td>@pago.Monto</td>
+                        <td>@pago.Fecha_pago.ToString("MMMM yyyy")</td>
+                        <td>@(pago.Estado ? "Pagado" : "Pendiente")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
