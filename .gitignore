@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 .vscode/*
+bin/Debug/net8.0/InmobiliariaOrtiz-Pascuali.dll
