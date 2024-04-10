@@ -21,7 +21,7 @@ public class InmuebleController : Controller
     }
 
     public IActionResult Registrar(int id)
-    { 
+    {
         PropietarioRepo repoProp = new PropietarioRepo();
         ViewBag.Propietarios = repoProp.getPropietarios();
         return View();
@@ -29,8 +29,8 @@ public class InmuebleController : Controller
 
     }
 
-     public IActionResult Editar(int id)
-    { 
+    public IActionResult Editar(int id)
+    {
         PropietarioRepo repoProp = new PropietarioRepo();
         ViewBag.Propietarios = repoProp.getPropietarios();
         InmuebleRepo repo = new InmuebleRepo();
@@ -43,15 +43,15 @@ public class InmuebleController : Controller
     {
         InmuebleRepo repo = new InmuebleRepo();
         // Inmueble inmueble = repo.BuscarInmueble(id);
-       
+
         repo.ModificarInmueble(inmueble);
 
-      
+
 
         return RedirectToAction(nameof(Index));
     }
 
-    
+
 
     public IActionResult Insertar(Inmueble inmueble)
 
@@ -84,4 +84,18 @@ public class InmuebleController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
+
+
+
+public IActionResult BuscarPorDireccion(string direccion)
+{
+    InmuebleRepo repo = new InmuebleRepo();
+    var inmuebles = repo.BuscarPorDireccion(direccion);
+    return View("Index", inmuebles);
+}
+
+   
+
 }

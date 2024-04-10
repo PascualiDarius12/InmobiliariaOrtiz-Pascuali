@@ -158,4 +158,49 @@ public class InmuebleRepo
 
 
 
+
+	public IList<Inmueble> BuscarPorDireccion(string direccion)
+	{
+		IList<Inmueble> res = new List<Inmueble>();
+		using (var connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"SELECT i.IdInmueble, i.Direccion, i.Coordenadas, i.Cant_ambientes, i.Precio, i.IdPropietario,
+                   p.Nombre, p.Apellido
+                   FROM Inmueble i
+                   INNER JOIN Propietario p ON i.IdPropietario = p.IdPropietario
+                   WHERE i.Direccion LIKE @direccion";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue("@direccion", $"%{direccion}%");
+				command.CommandType = CommandType.Text;
+				connection.Open();
+				var reader = command.ExecuteReader();
+				while (reader.Read())
+				{
+					Inmueble inmueble = new Inmueble
+					{
+						IdInmueble = reader.GetInt32(0),
+						Direccion = reader.GetString(1),
+						Coordenadas = reader.GetString(2),
+						CantAmbientes = reader.GetInt32(3),
+						Precio = reader.GetInt32(4),
+						IdPropietario = reader.GetInt32(5),
+						propietario = new Propietario
+						{
+							IdPropietario = reader.GetInt32(5),
+							Nombre = reader.GetString(6),
+							Apellido = reader.GetString(7),
+						}
+					};
+					res.Add(inmueble);
+				}
+				connection.Close();
+			}
+		}
+		return res;
+	}
+
+
+
+
 }
