@@ -171,6 +171,37 @@ public class PropietarioRepo
 
 
 
+		public IList<Propietario> BuscarPorDNI(string dni)
+{
+    var propietarios = new List<Propietario>();
+
+    using (MySqlConnection connection = new MySqlConnection(connectionString))
+    {
+        string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} 
+                        FROM Propietario
+                        WHERE {nameof(Propietario.Dni)} LIKE @dni";
+
+        using (MySqlCommand command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddWithValue("@dni", $"%{dni}%");
+            connection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    propietarios.Add(new Propietario
+                    {
+                        IdPropietario = reader.GetInt32(nameof(Propietario.IdPropietario)),
+                        Nombre = reader.GetString(nameof(Propietario.Nombre)),
+                        Apellido = reader.GetString(nameof(Propietario.Apellido)),
+                        Dni = reader.GetString(nameof(Propietario.Dni))
+                    });
+                }
+            }
+        }
+    }
+    return propietarios;
+}
 
 
 

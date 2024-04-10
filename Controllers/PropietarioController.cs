@@ -61,7 +61,7 @@ public class PropietarioController : Controller
     }
 
 
-    
+
     public IActionResult Eliminar(int id)
     {
         Console.WriteLine(id);
@@ -72,6 +72,17 @@ public class PropietarioController : Controller
             TempData["Error"] = "Ocurrió un error al eliminar el propietario.";
         }
         return RedirectToAction(nameof(Index));
+    }
+
+
+
+
+
+    public IActionResult BuscarPorDNI(string dni)
+    {
+        PropietarioRepo repo = new PropietarioRepo();
+        var propietarios = repo.BuscarPorDNI(dni);
+        return View("Index", propietarios);
     }
 
 }
