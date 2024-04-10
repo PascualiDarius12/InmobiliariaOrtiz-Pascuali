@@ -4,7 +4,7 @@ using System.Data;
 
 public class InquilinoRepo
 {
-    readonly string connectionString;
+	readonly string connectionString;
 
 	public InquilinoRepo()
 	{
@@ -99,7 +99,7 @@ public class InquilinoRepo
 
 
 				command.Parameters.AddWithValue($"@{nameof(Inquilino.Nombre)}", inquilino.Nombre);
-				command.Parameters.AddWithValue($"@{nameof(Inquilino.Apellido)}",inquilino.Apellido);
+				command.Parameters.AddWithValue($"@{nameof(Inquilino.Apellido)}", inquilino.Apellido);
 				command.Parameters.AddWithValue($"@{nameof(Inquilino.Dni)}", inquilino.Dni);
 				connection.Open();
 				id = Convert.ToInt32(command.ExecuteScalar());
@@ -160,6 +160,37 @@ public class InquilinoRepo
 	}
 
 
+	public IList<Inquilino> BuscarPorDNI(string dni)
+	{
+		var inquilinos = new List<Inquilino>();
+
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @$"SELECT {nameof(Inquilino.IdInquilino)}, {nameof(Inquilino.Nombre)}, {nameof(Inquilino.Apellido)}, {nameof(Inquilino.Dni)} 
+                        FROM Inquilino
+                        WHERE {nameof(Inquilino.Dni)} LIKE @dni";
+
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue("@dni", $"%{dni}%");
+				connection.Open();
+				using (var reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						inquilinos.Add(new Inquilino
+						{
+							IdInquilino = reader.GetInt32(nameof(Inquilino.IdInquilino)),
+							Nombre = reader.GetString(nameof(Inquilino.Nombre)),
+							Apellido = reader.GetString(nameof(Inquilino.Apellido)),
+							Dni = reader.GetString(nameof(Inquilino.Dni))
+						});
+					}
+				}
+			}
+		}
+		return inquilinos;
+	}
 
 
 

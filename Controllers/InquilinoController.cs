@@ -79,4 +79,16 @@ public class InquilinoController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
+
+
+
+    public IActionResult BuscarPorDNI(string dni)
+{
+    InquilinoRepo repo = new InquilinoRepo();
+    var inquilinos = repo.BuscarPorDNI(dni);
+    return View("Index", inquilinos);
+}
+
 }
