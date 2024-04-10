@@ -100,7 +100,7 @@ public class ContratoController : Controller
 
     }
 
-     public IActionResult Pagos(int id)
+    public IActionResult Pagos(int id)
 
 
     {
@@ -108,7 +108,7 @@ public class ContratoController : Controller
 
         ContratoRepo Cr = new ContratoRepo();
         var listaPagos = Cr.ObtenerPagos(id);
-        
+
 
 
 
@@ -124,7 +124,7 @@ public class ContratoController : Controller
 
         ContratoRepo repo = new ContratoRepo();
         Contrato contrato = repo.BuscarContrato(id);
-       
+
 
         if (contrato != null)
         {
@@ -132,22 +132,35 @@ public class ContratoController : Controller
         }
         else
         {
-            
+
             return NotFound();
         }
     }
 
 
-/*
-
-    [HttpPost]
-    public IActionResult RealizarPago(int contratoId)
+    public IActionResult BuscarPorDNI(string dni)
     {
-        // Aquí puedes agregar la lógica para procesar el pago del contrato
-        // Puedes acceder al ID del contrato enviado desde el formulario a través del parámetro contratoId
-        return RedirectToAction(nameof(Index)); // Redirige a la página de contratos después de realizar el pago
+        ContratoRepo Cr = new ContratoRepo();
+        var listaContratos = Cr.BuscarPorDNI(dni);
+
+        return View("Index", listaContratos);
     }
-*/
+
+
+
+
+
+
+    /*
+
+        [HttpPost]
+        public IActionResult RealizarPago(int contratoId)
+        {
+            // Aquí puedes agregar la lógica para procesar el pago del contrato
+            // Puedes acceder al ID del contrato enviado desde el formulario a través del parámetro contratoId
+            return RedirectToAction(nameof(Index)); // Redirige a la página de contratos después de realizar el pago
+        }
+    */
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -54,7 +54,7 @@ public class ContratoRepo
 							Precio = reader.GetDouble(12)
 						}
 					};
-					
+
 					res.Add(contrato);
 				}
 				connection.Close();
@@ -66,32 +66,32 @@ public class ContratoRepo
 	public IList<Pago> ObtenerPagos(int id)
 	{
 
-		 IList<Pago> pagos = new List<Pago>();
-    using (var connection = new MySqlConnection(connectionString))
-    {
-        string sql = @"SELECT IdPago, Fecha_pago, Monto
+		IList<Pago> pagos = new List<Pago>();
+		using (var connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"SELECT IdPago, Fecha_pago, Monto
                       FROM Pago
                       WHERE IdContrato = @IdContrato";
-        using (MySqlCommand command = new MySqlCommand(sql, connection))
-        {
-            command.CommandType = CommandType.Text;
-            command.Parameters.AddWithValue("@IdContrato", id); // Verificar aquí
-            connection.Open();
-            var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                Pago pago = new Pago
-                {
-                    IdPago = reader.GetInt32(0),
-                    Fecha_pago = reader.GetDateTime(1),
-                    Monto = reader.GetInt32(2),
-                    IdContrato = id,
-                };
-                pagos.Add(pago);
-            }
-        }
-        return pagos;
-    }
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.CommandType = CommandType.Text;
+				command.Parameters.AddWithValue("@IdContrato", id); // Verificar aquí
+				connection.Open();
+				var reader = command.ExecuteReader();
+				while (reader.Read())
+				{
+					Pago pago = new Pago
+					{
+						IdPago = reader.GetInt32(0),
+						Fecha_pago = reader.GetDateTime(1),
+						Monto = reader.GetInt32(2),
+						IdContrato = id,
+					};
+					pagos.Add(pago);
+				}
+			}
+			return pagos;
+		}
 	}
 
 	public int CalcularPagos(DateTime fechaInicio, DateTime fechaFin)
@@ -258,6 +258,65 @@ public class ContratoRepo
 		}
 		return res;
 	}
+
+
+
+
+	public IList<Contrato> BuscarPorDNI(string dni)
+	{
+		IList<Contrato> res = new List<Contrato>();
+		using (var connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"SELECT c.IdContrato, c.fecha_inicio, c.fecha_fin, c.multa, c.estado, c.IdInmueble, c.IdInquilino,
+                   i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, inm.Precio
+                   FROM Contrato c
+                   INNER JOIN Inquilino i ON i.IdInquilino = c.IdInquilino 
+                   INNER JOIN Inmueble inm ON inm.IdInmueble = c.IdInmueble
+                   WHERE i.Dni = @dni";
+
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue("@dni", dni);
+				command.CommandType = CommandType.Text;
+				connection.Open();
+				var reader = command.ExecuteReader();
+				while (reader.Read())
+				{
+					Contrato contrato = new Contrato
+					{
+						IdContrato = reader.GetInt32(0),
+						Fecha_inicio = reader.GetDateTime(1),
+						Fecha_fin = reader.GetDateTime(2),
+						Multa = reader.GetInt32(3),
+						Estado = reader.GetBoolean(4),
+						IdInmueble = reader.GetInt32(5),
+						IdInquilino = reader.GetInt32(6),
+						pagos = ObtenerPagos(reader.GetInt32(0)),
+						inquilino = new Inquilino
+						{
+							IdInquilino = reader.GetInt32(6),
+							Nombre = reader.GetString(7),
+							Apellido = reader.GetString(8),
+							Dni = reader.GetString(9)
+						},
+						inmueble = new Inmueble
+						{
+							IdInmueble = reader.GetInt32(6),
+							Direccion = reader.GetString(10),
+							Coordenadas = reader.GetString(11),
+							Precio = reader.GetDouble(12)
+						}
+					};
+
+					res.Add(contrato);
+				}
+				connection.Close();
+			}
+		}
+		return res;
+	}
+
+
 
 
 
