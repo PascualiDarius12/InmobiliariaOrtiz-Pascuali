@@ -12,6 +12,7 @@ public class Contrato
     public int Multa {get; set;}
 
     public bool Estado {get; set;}
+    public double Valor {get;set;}
 
     public IList<Pago> pagos {get;set;}
 

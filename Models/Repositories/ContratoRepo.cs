@@ -17,7 +17,7 @@ public class ContratoRepo
 		using (var connection = new MySqlConnection(connectionString))
 		{
 			string sql = @"SELECT c.IdContrato, c.fecha_inicio, c.fecha_fin, c.multa, c.estado, c.IdInmueble, c.IdInquilino,
-                       i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, inm.Precio
+                       i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, c.valor
                        FROM Contrato c
                        INNER JOIN Inquilino i ON i.IdInquilino = c.IdInquilino 
 					   INNER JOIN Inmueble inm ON inm.IdInmueble = c.IdInmueble";
@@ -38,6 +38,7 @@ public class ContratoRepo
 						Estado = reader.GetBoolean(4),
 						IdInmueble = reader.GetInt32(5),
 						IdInquilino = reader.GetInt32(6),
+						Valor = reader.GetDouble(12),
 						pagos = ObtenerPagos(reader.GetInt32(0)),
 						inquilino = new Inquilino
 						{
@@ -51,7 +52,7 @@ public class ContratoRepo
 							IdInmueble = reader.GetInt32(6),
 							Direccion = reader.GetString(10),
 							Coordenadas = reader.GetString(11),
-							Precio = reader.GetDouble(12)
+							
 						}
 					};
 
@@ -108,8 +109,8 @@ public class ContratoRepo
 		using (var connection = new MySqlConnection(connectionString))
 		{
 			string sql = @"INSERT INTO Contrato 
-					(Fecha_inicio, Fecha_fin, IdInmueble, IdInquilino)
-					VALUES (@Fecha_inicio, @Fecha_fin, @IdInmueble, @IdInquilino);
+					(Fecha_inicio, Fecha_fin, IdInmueble, IdInquilino, Valor)
+					VALUES (@Fecha_inicio, @Fecha_fin, @IdInmueble, @IdInquilino, @Valor);
 					SELECT LAST_INSERT_ID();";//devuelve el id insertado 
 
 			string sql2 = @"INSERT INTO Pago 
@@ -123,6 +124,8 @@ public class ContratoRepo
 				insertContratoCommand.Parameters.AddWithValue("@Fecha_fin", contrato.Fecha_fin);
 				insertContratoCommand.Parameters.AddWithValue("@IdInmueble", contrato.IdInmueble);
 				insertContratoCommand.Parameters.AddWithValue("@IdInquilino", contrato.IdInquilino);
+				InmuebleRepo inmr = new InmuebleRepo();
+				insertContratoCommand.Parameters.AddWithValue("@Valor", inmr.BuscarInmueble(contrato.IdInmueble).Precio);
 
 				try
 				{
@@ -134,7 +137,7 @@ public class ContratoRepo
 					int meses = ((contrato.Fecha_fin.Year - contrato.Fecha_inicio.Year) * 12) + contrato.Fecha_fin.Month - contrato.Fecha_inicio.Month;
 
 					// Calcular el monto de cada pago (suponiendo que el contrato tiene un monto fijo por mes)
-					InmuebleRepo inmr = new InmuebleRepo();
+					
 
 					double montoPorMes = inmr.BuscarInmueble(contrato.IdInmueble).Precio; // Puedes ajustar este valor según sea necesario
 					double montoTotal = meses * montoPorMes;
@@ -187,7 +190,7 @@ public class ContratoRepo
 		using (var connection = new MySqlConnection(connectionString))
 		{
 			string sql = @"SELECT c.IdContrato, c.fecha_inicio, c.fecha_fin, c.multa, c.estado, c.IdInmueble, c.IdInquilino,
-                       i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, inm.Precio, inm.IdPropietario
+                       i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, c.valor, inm.IdPropietario
                        FROM Contrato c
                        INNER JOIN Inquilino i ON i.IdInquilino = c.IdInquilino 
 					   INNER JOIN Inmueble inm ON inm.IdInmueble = c.IdInmueble
@@ -209,6 +212,7 @@ public class ContratoRepo
 						Estado = reader.GetBoolean(4),
 						IdInmueble = reader.GetInt32(5),
 						IdInquilino = reader.GetInt32(6),
+						Valor = reader.GetDouble(12),
 						pagos = ObtenerPagos(reader.GetInt32(0)),
 						inquilino = new Inquilino
 						{
@@ -222,7 +226,7 @@ public class ContratoRepo
 							IdInmueble = reader.GetInt32(6),
 							Direccion = reader.GetString(10),
 							Coordenadas = reader.GetString(11),
-							Precio = reader.GetDouble(12),
+							
 							IdPropietario = reader.GetInt32(13)
 						}
 					};
@@ -241,7 +245,7 @@ public class ContratoRepo
 		using (var connection = new MySqlConnection(connectionString))
 		{
 			string sql = "UPDATE Contrato SET " +
-"Fecha_inicio=@Fecha_inicio, Fecha_fin=@Fecha_fin, IdInmueble=@IdInmueble, IdInquilino=@IdInquilino " +
+"Fecha_inicio=@Fecha_inicio, Fecha_fin=@Fecha_fin, IdInmueble=@IdInmueble, IdInquilino=@IdInquilino" +
 "WHERE IdContrato = @id";
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
@@ -268,7 +272,7 @@ public class ContratoRepo
 		using (var connection = new MySqlConnection(connectionString))
 		{
 			string sql = @"SELECT c.IdContrato, c.fecha_inicio, c.fecha_fin, c.multa, c.estado, c.IdInmueble, c.IdInquilino,
-                   i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, inm.Precio
+                   i.Nombre, i.Apellido, i.Dni, inm.Direccion, inm.Coordenadas, c.valor
                    FROM Contrato c
                    INNER JOIN Inquilino i ON i.IdInquilino = c.IdInquilino 
                    INNER JOIN Inmueble inm ON inm.IdInmueble = c.IdInmueble
@@ -291,6 +295,7 @@ public class ContratoRepo
 						Estado = reader.GetBoolean(4),
 						IdInmueble = reader.GetInt32(5),
 						IdInquilino = reader.GetInt32(6),
+						Valor = reader.GetDouble(12),
 						pagos = ObtenerPagos(reader.GetInt32(0)),
 						inquilino = new Inquilino
 						{
@@ -304,7 +309,7 @@ public class ContratoRepo
 							IdInmueble = reader.GetInt32(6),
 							Direccion = reader.GetString(10),
 							Coordenadas = reader.GetString(11),
-							Precio = reader.GetDouble(12)
+							
 						}
 					};
 

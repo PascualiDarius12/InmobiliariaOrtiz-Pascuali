@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-04-2024 a las 02:14:17
+-- Tiempo de generación: 11-04-2024 a las 20:44:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -33,6 +33,7 @@ CREATE TABLE `contrato` (
   `idInmueble` int(11) DEFAULT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
+  `valor` double NOT NULL,
   `multa` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -41,10 +42,8 @@ CREATE TABLE `contrato` (
 -- Volcado de datos para la tabla `contrato`
 --
 
-INSERT INTO `contrato` (`idContrato`, `idInquilino`, `idInmueble`, `fecha_inicio`, `fecha_fin`, `multa`, `estado`) VALUES
-(16, 6, 21, '2024-04-06', '2024-11-06', 0, 0),
-(17, 5, 22, '2024-04-06', '2025-01-06', 0, 0),
-(18, 2, 23, '2024-04-06', '2025-07-06', 0, 0);
+INSERT INTO `contrato` (`idContrato`, `idInquilino`, `idInmueble`, `fecha_inicio`, `fecha_fin`, `valor`, `multa`, `estado`) VALUES
+(19, 2, 21, '2024-04-11', '2024-07-11', 200000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -116,37 +115,9 @@ CREATE TABLE `pago` (
 --
 
 INSERT INTO `pago` (`idPago`, `idContrato`, `monto`, `fecha_pago`, `estado`) VALUES
-(7, 16, 200000, '2024-04-06', 0),
-(8, 16, 200000, '2024-05-06', 0),
-(9, 16, 200000, '2024-06-06', 0),
-(10, 16, 200000, '2024-07-06', 0),
-(11, 16, 200000, '2024-08-06', 0),
-(12, 16, 200000, '2024-09-06', 0),
-(13, 16, 200000, '2024-10-06', 0),
-(14, 17, 250000, '2024-04-06', 0),
-(15, 17, 250000, '2024-05-06', 0),
-(16, 17, 250000, '2024-06-06', 0),
-(17, 17, 250000, '2024-07-06', 0),
-(18, 17, 250000, '2024-08-06', 0),
-(19, 17, 250000, '2024-09-06', 0),
-(20, 17, 250000, '2024-10-06', 0),
-(21, 17, 250000, '2024-11-06', 0),
-(22, 17, 250000, '2024-12-06', 0),
-(23, 18, 150000, '2024-04-06', 0),
-(24, 18, 150000, '2024-05-06', 0),
-(25, 18, 150000, '2024-06-06', 0),
-(26, 18, 150000, '2024-07-06', 0),
-(27, 18, 150000, '2024-08-06', 0),
-(28, 18, 150000, '2024-09-06', 0),
-(29, 18, 150000, '2024-10-06', 0),
-(30, 18, 150000, '2024-11-06', 0),
-(31, 18, 150000, '2024-12-06', 0),
-(32, 18, 150000, '2025-01-06', 0),
-(33, 18, 150000, '2025-02-06', 0),
-(34, 18, 150000, '2025-03-06', 0),
-(35, 18, 150000, '2025-04-06', 0),
-(36, 18, 150000, '2025-05-06', 0),
-(37, 18, 150000, '2025-06-06', 0);
+(38, 19, 200000, '2024-04-11', 0),
+(39, 19, 200000, '2024-05-11', 0),
+(40, 19, 200000, '2024-06-11', 0);
 
 -- --------------------------------------------------------
 
@@ -234,7 +205,7 @@ ALTER TABLE `propietario`
 -- AUTO_INCREMENT de la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  MODIFY `idContrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idContrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `inmueble`
@@ -252,7 +223,7 @@ ALTER TABLE `inquilino`
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `propietario`
