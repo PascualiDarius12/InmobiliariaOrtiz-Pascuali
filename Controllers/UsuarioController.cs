@@ -49,10 +49,12 @@ public class UsuarioController : Controller
         // {
         usuario = ur.crearClave(usuario, configuration);
 
-        var nbreRnd = Guid.NewGuid();//posible nombre aleatorio
-        int res = ur.Crear(usuario);
+        // var nbreRnd = Guid.NewGuid();//posible nombre aleatorio
+        usuario.IdUsuario = ur.Crear(usuario);
+       
         if (usuario.AvatarFile != null && usuario.IdUsuario > 0)
         {
+            Console.WriteLine("entro");
             string wwwPath = environment.WebRootPath;
             string path = Path.Combine(wwwPath, "Uploads");
             if (!Directory.Exists(path))

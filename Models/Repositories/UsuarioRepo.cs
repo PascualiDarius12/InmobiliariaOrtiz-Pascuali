@@ -127,6 +127,36 @@ public class UsuarioRepo
 		return id;
 	}
 
+	// public int Crear(Usuario e)
+	// 	{
+	// 		int res = -1;
+	// 		using (MySqlConnection connection = new MySqlConnection(connectionString))
+	// 		{
+	// 			string sql = @"INSERT INTO Usuario
+	// 				(Nombre, Apellido, Avatar, Email, Clave, Rol) 
+	// 				VALUES (@nombre, @apellido, @email, @clave, @rol);
+	// 				SELECT LAST_INSERT_ID();";//devuelve el id insertado (LAST_INSERT_ID para mysql)
+	// 			using (MySqlCommand command = new MySqlCommand(sql, connection))
+	// 			{
+	// 				command.CommandType = CommandType.Text;
+	// 				command.Parameters.AddWithValue("@nombre", e.Nombre);
+	// 				command.Parameters.AddWithValue("@apellido", e.Apellido);
+	// 				// if (String.IsNullOrEmpty(e.Avatar))
+	// 				// 	command.Parameters.AddWithValue("@avatar", DBNull.Value);
+	// 				// else
+	// 				// 	command.Parameters.AddWithValue("@avatar", e.Avatar);
+	// 				command.Parameters.AddWithValue("@email", e.Email);
+	// 				command.Parameters.AddWithValue("@clave", e.Clave);
+	// 				command.Parameters.AddWithValue("@rol", e.Rol);
+	// 				connection.Open();
+	// 				res = Convert.ToInt32(command.ExecuteScalar());
+	// 				e.IdUsuario = res;
+	// 				connection.Close();
+	// 			}
+	// 		}
+	// 		return res;
+	// 	}
+
     public Usuario crearClave(Usuario usuario, IConfiguration configuration){
 		string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                                password: usuario.Clave,
@@ -143,7 +173,7 @@ public class UsuarioRepo
 			int res = -1;
 			using (MySqlConnection connection = new MySqlConnection(connectionString))
 			{
-				string sql = @"UPDATE Usuarios 
+				string sql = @"UPDATE Usuario
 					SET Nombre=@nombre, Apellido=@apellido, Avatar=@avatar, Email=@email, Clave=@clave, Rol=@rol
 					WHERE IdUsuario = @id";
 				using (MySqlCommand command = new MySqlCommand(sql, connection))
