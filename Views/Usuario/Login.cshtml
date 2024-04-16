@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    
 }
 
 <div  class="w-100 d-flex justify-content-center">
@@ -17,7 +18,9 @@
             </button>
         </div>
         <span class="text-muted  text-center mt-3" style="font-size: 12px">Olvidaste tu Contraseña?</span>
+        <p class="text-danger">@ViewBag.Mensaje</p>
     </form>
+    
 
 
 </div>
