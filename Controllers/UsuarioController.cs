@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace InmobiliariaOrtiz_Pascuali.Controllers;
 
@@ -23,12 +25,25 @@ public class UsuarioController : Controller
 
     }
 
+
+
+
     public IActionResult Index()
     {
 
         var listaUsuarios = ur.getUsuarios();
         return View(listaUsuarios);
     }
+
+
+
+
+
+
+
+
+
+
 
     public IActionResult Registro()
 
@@ -137,65 +152,7 @@ public class UsuarioController : Controller
             return View();
         }
     }
-    // public IActionResult editar(int id)
-    // {
-    //     //logica para mostrar el formulario vacio o lleno con el propietario que queremos editar
-    //     if (id > 0)
-    //     {
-    //         PropietarioRepo repo = new PropietarioRepo();
-    //         var propietario = repo.buscarPropietario(id);
-    //         return View(propietario);
-    //     }
-    //     else
-    //     {
-    //         return View();
-    //     }
-
-
-    // }
-    // public IActionResult Insertar(Propietario propietario)
-    // {
-    //     PropietarioRepo repo = new PropietarioRepo();
-    //     if (propietario.IdPropietario > 0)
-    //     {
-    //         repo.Modificar(propietario);
-
-    //     }
-    //     else
-    //     {
-    //         repo.Insertar(propietario);
-    //     }
-
-
-
-    //     return RedirectToAction(nameof(Index));
-    // }
-
-
-    // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    // public IActionResult Error()
-    // {
-    //     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    // }
-
-
-
-    // public IActionResult Eliminar(int id)
-    // {
-    //     Console.WriteLine(id);
-    //     PropietarioRepo repo = new PropietarioRepo();
-    //     var resultado = repo.Eliminar(id);
-    //     if (resultado == -1)
-    //     {
-    //         TempData["Error"] = "Ocurrió un error al eliminar el propietario.";
-    //     }
-    //     return RedirectToAction(nameof(Index));
-    // }
-
-
-
-
-
+   
     public IActionResult BuscarPorDNI(string dni)
     {
         PropietarioRepo repo = new PropietarioRepo();
@@ -211,6 +168,48 @@ public class UsuarioController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Login", "Usuario"); // Redirige al inicio de sesión
     }
+
+
+
+
+/*
+public IActionResult editar(int id)
+{
+    var usuario = ur.ObtenerPorId(id);
+
+    if (usuario == null)
+    {
+        return NotFound();
+    }
+ViewBag.Roles = Usuario.ObtenerRoles();
+    // Obtener los roles como un diccionario de int y string
+    var rolesDict = Usuario.ObtenerRoles();
+
+    // Convertir el diccionario a una lista de SelectListItem
+    var rolesList = rolesDict.Select(r => new SelectListItem { Value = r.Key.ToString(), Text = r.Value }).ToList();
+
+    // Asignar la lista de roles a ViewBag.Roles
+    ViewBag.Roles = rolesList;
+
+    return View(usuario);
+}
+
+*/
+public IActionResult editar(int id)
+{
+    
+    var usuario = ur.ObtenerPorId(id);
+
+    if (usuario == null)
+    {
+        return NotFound();
+    }
+    // lo convierto pero no tira , larga error
+    ViewBag.Roles = Usuario.ObtenerRoles()
+        .Select(r => new SelectListItem { Value = r.Key.ToString(), Text = r.Value })
+        .ToList();
+
+    return View(usuario);
 }
 
 
@@ -220,4 +219,32 @@ public class UsuarioController : Controller
 
 
 
+[HttpPost]
+public IActionResult editar(Usuario usuario)
+{
+    if (ModelState.IsValid)
+    {
+        //  modificación en la base de datos
+        int resultado = ur.Modificacion(usuario);
+        if (resultado > 0)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+        else
+        {
+            // no se pudo modificar el usuario
+            ModelState.AddModelError(string.Empty, "No se pudo guardar la modificación del usuario.");
+        }
+    }
+    // Si hay errores de validación o si no se pudo modificar el usuario
+    // vuelve a mostrar el formulario de edición con los errores
+    ViewBag.Roles = Usuario.ObtenerRoles();
+    return View(usuario);
+}
 
+
+
+
+
+
+}
