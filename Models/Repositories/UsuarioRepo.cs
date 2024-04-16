@@ -119,35 +119,129 @@ public class UsuarioRepo
 	// 		return res;
 	// 	}
 
-    public Usuario crearClave(Usuario usuario, IConfiguration configuration){
+	public Usuario crearClave(Usuario usuario, IConfiguration configuration)
+	{
 		string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                               password: usuario.Clave,
-                               salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
-                               prf: KeyDerivationPrf.HMACSHA1,
-                               iterationCount: 1000,
-                               numBytesRequested: 256 / 8));
-            usuario.Clave = hashed;
+							   password: usuario.Clave,
+							   salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
+							   prf: KeyDerivationPrf.HMACSHA1,
+							   iterationCount: 1000,
+							   numBytesRequested: 256 / 8));
+		usuario.Clave = hashed;
 		return usuario;
 	}
 
 	public int Modificacion(Usuario e)
+	{
+		int res = -1;
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"UPDATE Usuario
+					SET Nombre=@nombre, Apellido=@apellido, Avatar=@avatar, Email=@email, Clave=@clave, Rol=@rol
+					WHERE IdUsuario = @id";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.CommandType = CommandType.Text;
+				command.Parameters.AddWithValue("@nombre", e.Nombre);
+				command.Parameters.AddWithValue("@apellido", e.Apellido);
+				command.Parameters.AddWithValue("@avatar", e.Avatar);
+				command.Parameters.AddWithValue("@email", e.Email);
+				command.Parameters.AddWithValue("@clave", e.Clave);
+				command.Parameters.AddWithValue("@rol", e.Rol);
+				command.Parameters.AddWithValue("@id", e.IdUsuario);
+				connection.Open();
+				res = command.ExecuteNonQuery();
+				connection.Close();
+			}
+		}
+		return res;
+	}
+
+
+	public Usuario ObtenerPorEmail(string email)
+	{
+		Usuario? e = null;
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"SELECT
+					IdUsuario, Nombre, Apellido, Avatar, Email, Clave, Rol FROM Usuario
+					WHERE Email=@email";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.CommandType = CommandType.Text;
+				command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
+				connection.Open();
+				var reader = command.ExecuteReader();
+				if (reader.Read())
+				{
+					e = new Usuario
+					{
+						IdUsuario = reader.GetInt32("IdUsuario"),
+						Nombre = reader.GetString("Nombre"),
+						Apellido = reader.GetString("Apellido"),
+						Avatar = reader.GetString("Avatar"),
+						Email = reader.GetString("Email"),
+						Clave = reader.GetString("Clave"),
+						Rol = reader.GetInt32("Rol"),
+					};
+				}
+				connection.Close();
+			}
+		}
+		return e;
+	}
+
+
+
+
+
+	public Usuario ObtenerPorId(int id)
+	{
+		Usuario usuario = null;
+
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"SELECT IdUsuario, Nombre, Apellido, Email, Rol FROM Usuario WHERE IdUsuario = @IdUsuario";
+
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue("@IdUsuario", id);
+
+				connection.Open();
+				using (var reader = command.ExecuteReader())
+				{
+					if (reader.Read())
+					{
+						usuario = new Usuario
+						{
+							IdUsuario = reader.GetInt32(nameof(Usuario.IdUsuario)), //reader.GetInt32("IdUsuario"),
+							Nombre = reader.GetString(nameof(Usuario.Nombre)),
+							Apellido = reader.GetString(nameof(Usuario.Apellido)),
+							Email = reader.GetString(nameof(Usuario.Email)),
+							Rol = reader.GetInt32(nameof(Usuario.Rol)),
+						};
+					}
+				}
+			}
+		}
+
+
+		return usuario;
+	}
+
+
+
+
+		public int Eliminar(int id)
 		{
 			int res = -1;
 			using (MySqlConnection connection = new MySqlConnection(connectionString))
 			{
-				string sql = @"UPDATE Usuario
-					SET Nombre=@nombre, Apellido=@apellido, Avatar=@avatar, Email=@email, Clave=@clave, Rol=@rol
-					WHERE IdUsuario = @id";
+				string sql = "DELETE FROM Usuario WHERE IdUsuario = @id";
 				using (MySqlCommand command = new MySqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
-					command.Parameters.AddWithValue("@nombre", e.Nombre);
-					command.Parameters.AddWithValue("@apellido", e.Apellido);
-					command.Parameters.AddWithValue("@avatar", e.Avatar);
-					command.Parameters.AddWithValue("@email", e.Email);
-					command.Parameters.AddWithValue("@clave", e.Clave);
-					command.Parameters.AddWithValue("@rol", e.Rol);
-					command.Parameters.AddWithValue("@id", e.IdUsuario);
+					command.Parameters.AddWithValue("@id", id);
 					connection.Open();
 					res = command.ExecuteNonQuery();
 					connection.Close();
@@ -157,76 +251,6 @@ public class UsuarioRepo
 		}
 
 
-		public Usuario ObtenerPorEmail(string email)
-		{
-			Usuario? e = null;
-			using (MySqlConnection connection = new MySqlConnection(connectionString))
-			{
-				string sql = @"SELECT
-					IdUsuario, Nombre, Apellido, Avatar, Email, Clave, Rol FROM Usuario
-					WHERE Email=@email";
-				using (MySqlCommand command = new MySqlCommand(sql, connection))
-				{
-					command.CommandType = CommandType.Text;
-					command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
-					connection.Open();
-					var reader = command.ExecuteReader();
-					if (reader.Read())
-					{
-						e = new Usuario
-						{
-							IdUsuario = reader.GetInt32("IdUsuario"),
-							Nombre = reader.GetString("Nombre"),
-							Apellido = reader.GetString("Apellido"),
-							Avatar = reader.GetString("Avatar"),
-							Email = reader.GetString("Email"),
-							Clave = reader.GetString("Clave"),
-							Rol = reader.GetInt32("Rol"),
-						};
-					}
-					connection.Close();
-				}
-			}
-			return e;
-		}
-
-
-
-
-
-public Usuario ObtenerPorId(int id)
-{
-    Usuario usuario = null;
-
-    using (MySqlConnection connection = new MySqlConnection(connectionString))
-    {
-        string sql = @"SELECT IdUsuario, Nombre, Apellido, Email, Rol FROM Usuario WHERE IdUsuario = @IdUsuario";
-
-        using (MySqlCommand command = new MySqlCommand(sql, connection))
-        {
-            command.Parameters.AddWithValue("@IdUsuario", id);
-
-            connection.Open();
-            using (var reader = command.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    usuario = new Usuario
-                    {
-                        IdUsuario = reader.GetInt32(nameof(Usuario.IdUsuario)), //reader.GetInt32("IdUsuario"),
-						Nombre = reader.GetString(nameof(Usuario.Nombre)),
-						Apellido = reader.GetString(nameof(Usuario.Apellido)),
-						Email = reader.GetString(nameof(Usuario.Email)),
-						Rol = reader.GetInt32(nameof(Usuario.Rol)),
-                    };
-                }
-            }
-        }
-    }
-
-
-    return usuario;
-}
 
 
 

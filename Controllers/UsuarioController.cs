@@ -152,7 +152,7 @@ public class UsuarioController : Controller
             return View();
         }
     }
-   
+
     public IActionResult BuscarPorDNI(string dni)
     {
         PropietarioRepo repo = new PropietarioRepo();
@@ -172,75 +172,91 @@ public class UsuarioController : Controller
 
 
 
-/*
-public IActionResult editar(int id)
-{
-    var usuario = ur.ObtenerPorId(id);
-
-    if (usuario == null)
+    /*
+    public IActionResult editar(int id)
     {
-        return NotFound();
-    }
-ViewBag.Roles = Usuario.ObtenerRoles();
-    // Obtener los roles como un diccionario de int y string
-    var rolesDict = Usuario.ObtenerRoles();
+        var usuario = ur.ObtenerPorId(id);
 
-    // Convertir el diccionario a una lista de SelectListItem
-    var rolesList = rolesDict.Select(r => new SelectListItem { Value = r.Key.ToString(), Text = r.Value }).ToList();
-
-    // Asignar la lista de roles a ViewBag.Roles
-    ViewBag.Roles = rolesList;
-
-    return View(usuario);
-}
-
-*/
-public IActionResult editar(int id)
-{
-    
-    var usuario = ur.ObtenerPorId(id);
-
-    if (usuario == null)
-    {
-        return NotFound();
-    }
-    // lo convierto pero no tira , larga error
-    ViewBag.Roles = Usuario.ObtenerRoles()
-        .Select(r => new SelectListItem { Value = r.Key.ToString(), Text = r.Value })
-        .ToList();
-
-    return View(usuario);
-}
-
-
-
-
-
-
-
-
-[HttpPost]
-public IActionResult editar(Usuario usuario)
-{
-    if (ModelState.IsValid)
-    {
-        //  modificación en la base de datos
-        int resultado = ur.Modificacion(usuario);
-        if (resultado > 0)
+        if (usuario == null)
         {
-            return RedirectToAction(nameof(Index));
+            return NotFound();
         }
-        else
-        {
-            // no se pudo modificar el usuario
-            ModelState.AddModelError(string.Empty, "No se pudo guardar la modificación del usuario.");
-        }
-    }
-    // Si hay errores de validación o si no se pudo modificar el usuario
-    // vuelve a mostrar el formulario de edición con los errores
     ViewBag.Roles = Usuario.ObtenerRoles();
-    return View(usuario);
-}
+        // Obtener los roles como un diccionario de int y string
+        var rolesDict = Usuario.ObtenerRoles();
+
+        // Convertir el diccionario a una lista de SelectListItem
+        var rolesList = rolesDict.Select(r => new SelectListItem { Value = r.Key.ToString(), Text = r.Value }).ToList();
+
+        // Asignar la lista de roles a ViewBag.Roles
+        ViewBag.Roles = rolesList;
+
+        return View(usuario);
+    }
+
+    */
+    public IActionResult editar(int id)
+    {
+
+        var usuario = ur.ObtenerPorId(id);
+
+        if (usuario == null)
+        {
+            return NotFound();
+        }
+        // lo convierto pero no tira , larga error
+        ViewBag.Roles = Usuario.ObtenerRoles()
+            .Select(r => new SelectListItem { Value = r.Key.ToString(), Text = r.Value })
+            .ToList();
+
+        return View(usuario);
+    }
+
+
+
+
+
+
+
+
+    [HttpPost]
+    public IActionResult editar(Usuario usuario)
+    {
+        if (ModelState.IsValid)
+        {
+            //  modificación en la base de datos
+            int resultado = ur.Modificacion(usuario);
+            if (resultado > 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                // no se pudo modificar el usuario
+                ModelState.AddModelError(string.Empty, "No se pudo guardar la modificación del usuario.");
+            }
+        }
+        // Si hay errores de validación o si no se pudo modificar el usuario
+        // vuelve a mostrar el formulario de edición con los errores
+        ViewBag.Roles = Usuario.ObtenerRoles();
+        return View(usuario);
+    }
+
+
+
+
+
+    //eliminar un usuario
+    public IActionResult Eliminar(int id)
+    {
+        Console.WriteLine(id);
+        var resultado = ur.Eliminar(id);
+        if (resultado == -1)
+        {
+            TempData["Error"] = "Ocurrió un error al eliminar el usuario.";
+        }
+        return RedirectToAction(nameof(Index));
+    }
 
 
 
