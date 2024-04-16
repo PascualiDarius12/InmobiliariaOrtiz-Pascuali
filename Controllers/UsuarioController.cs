@@ -203,10 +203,9 @@ public class UsuarioController : Controller
         {
             return NotFound();
         }
-        // lo convierto pero no tira , larga error
-        ViewBag.Roles = Usuario.ObtenerRoles()
-            .Select(r => new SelectListItem { Value = r.Key.ToString(), Text = r.Value })
-            .ToList();
+        
+        ViewBag.Roles = Usuario.ObtenerRoles();
+       
 
         return View(usuario);
     }
