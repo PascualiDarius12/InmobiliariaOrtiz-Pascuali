@@ -202,7 +202,7 @@ public class UsuarioRepo
 
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			string sql = @"SELECT IdUsuario, Nombre, Apellido, Email, Rol, Avatar FROM Usuario WHERE IdUsuario = @IdUsuario";
+			string sql = @"SELECT IdUsuario, Nombre, Apellido, Email, Rol, Avatar, Clave FROM Usuario WHERE IdUsuario = @IdUsuario";
 
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
@@ -221,6 +221,7 @@ public class UsuarioRepo
 							Email = reader.GetString(nameof(Usuario.Email)),
 							Rol = reader.GetInt32(nameof(Usuario.Rol)),
 							Avatar = reader.GetString(nameof(Usuario.Avatar)),
+							Clave = reader.GetString(nameof(Usuario.Clave))
 						};
 					}
 				}
