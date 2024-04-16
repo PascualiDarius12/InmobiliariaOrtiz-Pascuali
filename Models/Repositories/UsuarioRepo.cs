@@ -29,7 +29,7 @@ public class UsuarioRepo
 
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			string sql = @$"SELECT {nameof(Usuario.IdUsuario)}, {nameof(Usuario.Nombre)}, {nameof(Usuario.Apellido)}, {nameof(Usuario.Email)}, {nameof(Usuario.Rol)} FROM Usuario";
+			string sql = @$"SELECT {nameof(Usuario.IdUsuario)}, {nameof(Usuario.Nombre)}, {nameof(Usuario.Apellido)}, {nameof(Usuario.Email)}, {nameof(Usuario.Rol)}, {nameof(Usuario.Avatar)} FROM Usuario";
 
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
@@ -46,6 +46,7 @@ public class UsuarioRepo
 							Apellido = reader.GetString(nameof(Usuario.Apellido)),
 							Email = reader.GetString(nameof(Usuario.Email)),
 							Rol = reader.GetInt32(nameof(Usuario.Rol)),
+							Avatar = reader.GetString(nameof(Usuario.Avatar)),
 
 						});
 

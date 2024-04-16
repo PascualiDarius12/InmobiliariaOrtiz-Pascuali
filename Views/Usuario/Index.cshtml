@@ -13,7 +13,7 @@
                     <input type="text" class="form-control" placeholder="buscar Usuario por dni" name="dni">
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="submit" form="searchForm">
-                            <i class="fas fa-search"></i> <!-- icono puedo ponerle un texto tambien -->
+                            <i class="fas fa-search"></i> 
                         </button>
                     </span>
                 </div>
@@ -35,6 +35,7 @@
                 <th scope="col">Apellido</th>
                 <th scope="col">Email</th>
                 <th scope="col">Rol</th>
+                <th scope="col">Avatar</th>
                 <th scope="col">Modificar</th>
                 <th scope="col">Borrar</th>
             </tr>
@@ -48,6 +49,7 @@
                     <td>@item.Apellido</td>
                     <td>@item.Email</td>
                     <td>@item.RolNombre</td>
+                    <td><img class="rounded-circle" style="width: 30px;" src="@item.Avatar" alt=""></td>
 
                     <td>
                         <div class="w-100">
