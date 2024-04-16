@@ -122,8 +122,7 @@ public class UsuarioController : Controller
             var e = ur.ObtenerPorEmail(usuario.Email);
             if (e == null || e.Clave != usuario.Clave)
             {
-                ModelState.AddModelError("", "El email o la clave no son correctos");
-                // TempData["returnUrl"] = returnUrl;
+                ViewBag.Mensaje = "El email o la clave no son correctos";
                 return View();
             }
 
