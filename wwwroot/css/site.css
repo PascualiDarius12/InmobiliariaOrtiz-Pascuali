@@ -21,6 +21,6 @@ body {
   margin-bottom: 60px;
 }
 
-a:hover{
+.agrandar:hover{
   transform: scale(1.2); 
 }
