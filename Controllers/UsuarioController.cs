@@ -122,8 +122,8 @@ public class UsuarioController : Controller
             var e = ur.ObtenerPorEmail(usuario.Email);
             if (e == null || e.Clave != usuario.Clave)
             {
-                
-               ViewBag.Mensaje = "Email o clave incorrecta";
+                ModelState.AddModelError("", "El email o la clave no son correctos");
+                // TempData["returnUrl"] = returnUrl;
                 return View();
             }
 
@@ -245,9 +245,22 @@ public class UsuarioController : Controller
 
 
 
+    /*
+        //eliminar un usuario
+        public IActionResult Eliminar(int id)
+        {
+            Console.WriteLine(id);
+            var resultado = ur.Eliminar(id);
+            if (resultado == -1)
+            {
+                TempData["Error"] = "Ocurrió un error al eliminar el usuario.";
+            }
+            return RedirectToAction(nameof(Index));
+        }
+    */
 
     //eliminar un usuario
-    public IActionResult Eliminar(int id)
+    public async Task<IActionResult> Eliminar(int id)
     {
         Console.WriteLine(id);
         var resultado = ur.Eliminar(id);
@@ -255,7 +268,13 @@ public class UsuarioController : Controller
         {
             TempData["Error"] = "Ocurrió un error al eliminar el usuario.";
         }
-        return RedirectToAction(nameof(Index));
+
+        // Cerrar la sesión actual
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        // aca  nos redirige al inicio de sesion
+        
+        return RedirectToAction(nameof(Login));
     }
 
 
