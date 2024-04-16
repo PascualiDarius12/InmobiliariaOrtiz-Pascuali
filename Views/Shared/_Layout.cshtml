@@ -1,6 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
+@{
+    var urlAvatar = Context.User.FindFirst("urlAvatar")?.Value;
+}
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +16,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/InmobiliariaOrtiz_Pascuali.styles.css" asp-append-version="true" />
 </head>
+
 
 <body>
 
@@ -76,10 +81,23 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Usuario"
                                     asp-action="Index">Usuario</a>
                             </li>
+
+
+
+                           
                         }
 
                     </ul>
+                     @if (!string.IsNullOrEmpty(urlAvatar))
+                            {
+                                <div class="rounded-circle w-25">
+                                    <a class="nav-link " asp-area="" asp-controller="" asp-action="">
+                                        <img class="rounded-circle w-25 h-25" src="@urlAvatar" alt="">
+                                    </a>
+                                </div>
+                            }
                 </div>
+
             </div>
         </nav>
     </header>

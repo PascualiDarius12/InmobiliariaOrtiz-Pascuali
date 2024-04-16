@@ -117,6 +117,7 @@ public class UsuarioController : Controller
                         new Claim(ClaimTypes.Name, e.Email),
                         new Claim("FullName", e.Nombre + " " + e.Apellido),
                         new Claim(ClaimTypes.Role, e.RolNombre),
+                        new Claim("urlAvatar",e.Avatar)
                     };
 
                 var claimsIdentity = new ClaimsIdentity(

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InmobiliariaOrtiz-Pascuali")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38e9903c18ad2e96f7f27240e5179cd0d4c6a31b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40d9111a819a50e890bdb96a5a767780f6c7f89f")]
 [assembly: System.Reflection.AssemblyProductAttribute("InmobiliariaOrtiz-Pascuali")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InmobiliariaOrtiz-Pascuali")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
