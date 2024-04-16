@@ -22,44 +22,6 @@ public class UsuarioRepo
 	}
 
 
-// 	public Propietario? buscarPropietario(int id)
-// 	{
-
-// 		Propietario? propietario = null;
-
-// 		using (MySqlConnection connection = new MySqlConnection(connectionString))
-// 		{
-// 			string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} 
-// 			FROM Propietario
-// 			WHERE {nameof(Propietario.IdPropietario)} = @{nameof(Propietario.IdPropietario)}";
-
-// 			using (MySqlCommand command = new MySqlCommand(sql, connection))
-// 			{
-// 				command.Parameters.AddWithValue($"@{nameof(Propietario.IdPropietario)}", id);
-// 				connection.Open();
-// 				using (var reader = command.ExecuteReader())
-// 				{
-// 					if (reader.Read())
-// 					{
-// 						propietario = new Propietario
-// 						{
-// 							IdPropietario = reader.GetInt32(nameof(Propietario.IdPropietario)),
-// 							Nombre = reader.GetString(nameof(Propietario.Nombre)),
-// 							Apellido = reader.GetString(nameof(Propietario.Apellido)),
-// 							Dni = reader.GetString(nameof(Propietario.Dni)),
-
-// 						};
-
-
-// 					}
-
-// 				}
-
-// 			}
-// 		}
-// 		return propietario;
-// 	}
-
 	public IList<Usuario> getUsuarios()
 	{
 
@@ -232,81 +194,40 @@ public class UsuarioRepo
 
 
 
-// 	public int Modificar(Propietario p)
-// 	{
-// 		int res = -1;
-// 		using (MySqlConnection connection = new MySqlConnection(connectionString))
-// 		{
-// 			string sql = @"UPDATE Propietario 
-// 					SET Nombre=@nombre, Apellido=@apellido, Dni=@dni
-// 					WHERE IdPropietario = @id";
-// 			using (MySqlCommand command = new MySqlCommand(sql, connection))
-// 			{
-// 				command.CommandType = CommandType.Text;
-// 				command.Parameters.AddWithValue("@nombre", p.Nombre);
-// 				command.Parameters.AddWithValue("@apellido", p.Apellido);
-// 				command.Parameters.AddWithValue("@dni", p.Dni);
-// 				command.Parameters.AddWithValue("@id", p.IdPropietario);
-// 				connection.Open();
-// 				res = command.ExecuteNonQuery();
-// 				connection.Close();
-// 			}
-// 		}
-// 		return res;
-// 	}
+public Usuario ObtenerPorId(int id)
+{
+    Usuario usuario = null;
+
+    using (MySqlConnection connection = new MySqlConnection(connectionString))
+    {
+        string sql = @"SELECT IdUsuario, Nombre, Apellido, Email, Rol FROM Usuario WHERE IdUsuario = @IdUsuario";
+
+        using (MySqlCommand command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddWithValue("@IdUsuario", id);
+
+            connection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    usuario = new Usuario
+                    {
+                        IdUsuario = reader.GetInt32(nameof(Usuario.IdUsuario)), //reader.GetInt32("IdUsuario"),
+						Nombre = reader.GetString(nameof(Usuario.Nombre)),
+						Apellido = reader.GetString(nameof(Usuario.Apellido)),
+						Email = reader.GetString(nameof(Usuario.Email)),
+						Rol = reader.GetInt32(nameof(Usuario.Rol)),
+                    };
+                }
+            }
+        }
+    }
 
 
-// 	public int Eliminar(int id)
-// 		{
-// 			int res = -1;
-// 			using (MySqlConnection connection = new MySqlConnection(connectionString))
-// 			{
-// 				string sql = "DELETE FROM Propietario WHERE IdPropietario = @id";
-// 				using (MySqlCommand command = new MySqlCommand(sql, connection))
-// 				{
-// 					command.CommandType = CommandType.Text;
-// 					command.Parameters.AddWithValue("@id", id);
-// 					connection.Open();
-// 					res = command.ExecuteNonQuery();
-// 					connection.Close();
-// 				}
-// 			}
-// 			return res;
-// 		}
+    return usuario;
+}
 
-
-
-// 		public IList<Propietario> BuscarPorDNI(string dni)
-// {
-//     var propietarios = new List<Propietario>();
-
-//     using (MySqlConnection connection = new MySqlConnection(connectionString))
-//     {
-//         string sql = @$"SELECT {nameof(Propietario.IdPropietario)}, {nameof(Propietario.Nombre)}, {nameof(Propietario.Apellido)}, {nameof(Propietario.Dni)} 
-//                         FROM Propietario
-//                         WHERE {nameof(Propietario.Dni)} LIKE @dni";
-
-//         using (MySqlCommand command = new MySqlCommand(sql, connection))
-//         {
-//             command.Parameters.AddWithValue("@dni", $"%{dni}%");
-//             connection.Open();
-//             using (var reader = command.ExecuteReader())
-//             {
-//                 while (reader.Read())
-//                 {
-//                     propietarios.Add(new Propietario
-//                     {
-//                         IdPropietario = reader.GetInt32(nameof(Propietario.IdPropietario)),
-//                         Nombre = reader.GetString(nameof(Propietario.Nombre)),
-//                         Apellido = reader.GetString(nameof(Propietario.Apellido)),
-//                         Dni = reader.GetString(nameof(Propietario.Dni))
-//                     });
-//                 }
-//             }
-//         }
-//     }
-//     return propietarios;
-// }
 
 
 
