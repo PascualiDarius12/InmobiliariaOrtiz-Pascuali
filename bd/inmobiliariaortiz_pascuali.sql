@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2024 a las 20:55:52
+-- Tiempo de generación: 16-04-2024 a las 02:25:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -149,15 +149,23 @@ INSERT INTO `propietario` (`idPropietario`, `nombre`, `apellido`, `dni`, `estado
 --
 
 CREATE TABLE `usuario` (
-  `id_usuario` int(11) NOT NULL,
-  `dni` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
   `apellido` varchar(100) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `contrasena` varchar(100) NOT NULL,
-  `nick` varchar(100) NOT NULL,
-  `rol` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `clave` varchar(1000) NOT NULL,
+  `rol` int(11) NOT NULL,
+  `avatar` varchar(1000) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `apellido`, `nombre`, `email`, `clave`, `rol`, `avatar`, `estado`) VALUES
+(24, 'Pascuali', 'Dario', 'dario@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads\\avatar_24.webp', 0),
+(25, 'Ortiz', 'Wilson', 'wilson@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads\\avatar_25.jpg', 0);
 
 --
 -- Índices para tablas volcadas
@@ -198,6 +206,12 @@ ALTER TABLE `propietario`
   ADD PRIMARY KEY (`idPropietario`);
 
 --
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`idUsuario`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -230,6 +244,12 @@ ALTER TABLE `pago`
 --
 ALTER TABLE `propietario`
   MODIFY `idPropietario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restricciones para tablas volcadas
