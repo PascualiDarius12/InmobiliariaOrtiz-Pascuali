@@ -51,7 +51,7 @@ public class UsuarioController : Controller
 
         // var nbreRnd = Guid.NewGuid();//posible nombre aleatorio
         usuario.IdUsuario = ur.Crear(usuario);
-       
+
         if (usuario.AvatarFile != null && usuario.IdUsuario > 0)
         {
             Console.WriteLine("entro");
@@ -83,11 +83,11 @@ public class UsuarioController : Controller
     }
 
     // GET: Usuarios/Login/
-		public ActionResult Login(string returnUrl)
-		{
-			TempData["returnUrl"] = returnUrl;
-			return View();
-		}
+    public ActionResult Login(string returnUrl)
+    {
+        TempData["returnUrl"] = returnUrl;
+        return View();
+    }
 
 
     [HttpPost]
@@ -101,18 +101,18 @@ public class UsuarioController : Controller
         {
             //esto permite que el usuario cuando se logue lo redireccione a la url q estaba y no al home como defecto
             // var returnUrl = String.IsNullOrEmpty(TempData["returnUrl"] as string) ? "/Home" : TempData["returnUrl"].ToString();
-          
-                usuario = ur.crearClave(usuario,configuration);
 
-                var e = ur.ObtenerPorEmail(usuario.Email);
-                if (e == null || e.Clave != usuario.Clave)
-                {
-                    ModelState.AddModelError("", "El email o la clave no son correctos");
-                    // TempData["returnUrl"] = returnUrl;
-                    return View();
-                }
+            usuario = ur.crearClave(usuario, configuration);
 
-                var claims = new List<Claim>
+            var e = ur.ObtenerPorEmail(usuario.Email);
+            if (e == null || e.Clave != usuario.Clave)
+            {
+                ModelState.AddModelError("", "El email o la clave no son correctos");
+                // TempData["returnUrl"] = returnUrl;
+                return View();
+            }
+
+            var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, e.Email),
                         new Claim("FullName", e.Nombre + " " + e.Apellido),
@@ -120,16 +120,16 @@ public class UsuarioController : Controller
                         new Claim("urlAvatar",e.Avatar)
                     };
 
-                var claimsIdentity = new ClaimsIdentity(
-                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity));
-                TempData.Remove("returnUrl");
-               return RedirectToAction(nameof(Index));
-            
-           
+            await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity));
+            TempData.Remove("returnUrl");
+            return RedirectToAction(nameof(Index));
+
+
         }
         catch (Exception ex)
         {
@@ -203,7 +203,18 @@ public class UsuarioController : Controller
         return View("Index", propietarios);
     }
 
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login", "Usuario"); // Redirige al inicio de sesión
+    }
 }
+
+
+
 
 
 
