@@ -1,30 +1,32 @@
-﻿@model Propietario
+﻿@model Usuario
 
 @{
-  ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Editar Usuario";
 }
-<div class="w-100 d-flex justify-content-center">
 
-  <form asp-action="Insertar" class="w-50">
-    <p>Registrar Propietario:</p>
-    <div class="form-group d-none">
-      <input asp-for="IdPropietario" type="text" class="form-control" id="" readonly>
-    </div>
-    <div class="form-group">
-      <label asp-for="Nombre">Nombre</label>
-      <input asp-for="Nombre" type="text" class="form-control" id="" placeholder="Escriba nombre">
-    </div>
-    <div class="form-group">
-      <label asp-for="Apellido">Apellido</label>
-      <input asp-for="Apellido" type="text" class="form-control" id="" placeholder="Escriba Apellido">
-    </div>
-    <div class="form-group">
-      <label asp-for="Dni">Dni</label>
-      <input asp-for="Dni" type="text" class="form-control" id="" placeholder="Escriba dni">
-    </div>
-    <div class="w-100 d-flex justify-content-center mt-4">
-      <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
-  </form>
+<h5 class="m-4 text-center w-100">@ViewData["Title"]</h5>
 
+<div class="container">
+    <form asp-action="editar" method="post">
+        <input type="hidden" asp-for="IdUsuario" />
+        <div class="form-group">
+            <label asp-for="Nombre"></label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Apellido"></label>
+            <input asp-for="Apellido" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Rol"></label>
+            <select asp-for="Rol" class="form-control" asp-items="ViewBag.Roles">
+                <option value="">Seleccione Rol</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
 </div>
