@@ -88,14 +88,30 @@
                         }
 
                     </ul>
-                     @if (!string.IsNullOrEmpty(urlAvatar))
-                            {
-                                <div class="rounded-circle">
-                                    <a class="nav-link d-flex justify-content-end" asp-area="" asp-controller="" asp-action="">
-                                        <img class="rounded-circle w-25" src="@urlAvatar" alt="">
-                                    </a>
-                                </div>
-                            }
+                     
+
+                           @if (!string.IsNullOrEmpty(urlAvatar)){
+                            <div class="dropdown">
+                                <button class="btn btn-outline-light dropdown-toggle" type="button" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="@urlAvatar" class="rounded-circle" style="width: 30px; height: 30px;">
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
+                                    <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form id="logoutForm" asp-controller="Usuario" asp-action="Logout" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-link dropdown-item">Cerrar sesión</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+
+                            
+
+
+
                 </div>
 
             </div>
@@ -110,6 +126,8 @@
             @RenderBody()
         </main>
     </div>
+
+
 
 
     <div class="container">
