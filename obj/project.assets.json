@@ -1786,24 +1786,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\54266\\.nuget\\packages\\": {}
+    "C:\\Users\\wilso\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\InmobiliariaOrtiz-Pascuali.csproj",
+      "projectUniqueName": "C:\\Users\\wilso\\Desktop\\universidad 2024\\.net\\InmobiliariaOrtiz-Pascuali\\InmobiliariaOrtiz-Pascuali.csproj",
       "projectName": "InmobiliariaOrtiz-Pascuali",
-      "projectPath": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\InmobiliariaOrtiz-Pascuali.csproj",
-      "packagesPath": "C:\\Users\\54266\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\obj\\",
+      "projectPath": "C:\\Users\\wilso\\Desktop\\universidad 2024\\.net\\InmobiliariaOrtiz-Pascuali\\InmobiliariaOrtiz-Pascuali.csproj",
+      "packagesPath": "C:\\Users\\wilso\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\wilso\\Desktop\\universidad 2024\\.net\\InmobiliariaOrtiz-Pascuali\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\54266\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\wilso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1851,7 +1853,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
