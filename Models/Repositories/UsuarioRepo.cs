@@ -235,27 +235,59 @@ public class UsuarioRepo
 
 
 
-		public int Eliminar(int id)
+	public int Eliminar(int id)
+	{
+		int res = -1;
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
-			int res = -1;
-			using (MySqlConnection connection = new MySqlConnection(connectionString))
+			string sql = "DELETE FROM Usuario WHERE IdUsuario = @id";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
-				string sql = "DELETE FROM Usuario WHERE IdUsuario = @id";
-				using (MySqlCommand command = new MySqlCommand(sql, connection))
+				command.CommandType = CommandType.Text;
+				command.Parameters.AddWithValue("@id", id);
+				connection.Open();
+				res = command.ExecuteNonQuery();
+				connection.Close();
+			}
+		}
+		return res;
+	}
+
+
+
+
+	//buscador por nombre
+	public IList<Usuario> BuscarPorNombre(string nombre)
+	{
+		var usuarios = new List<Usuario>();
+
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @$"SELECT {nameof(Usuario.IdUsuario)}, {nameof(Usuario.Nombre)}, {nameof(Usuario.Apellido)}, {nameof(Usuario.Email)}, {nameof(Usuario.Rol)} 
+                        FROM Usuario WHERE {nameof(Usuario.Nombre)} LIKE @nombre";
+
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue("@nombre", $"%{nombre}%");
+				connection.Open();
+				using (var reader = command.ExecuteReader())
 				{
-					command.CommandType = CommandType.Text;
-					command.Parameters.AddWithValue("@id", id);
-					connection.Open();
-					res = command.ExecuteNonQuery();
-					connection.Close();
+					while (reader.Read())
+					{
+						usuarios.Add(new Usuario
+						{
+							IdUsuario = reader.GetInt32(nameof(Usuario.IdUsuario)),
+							Nombre = reader.GetString(nameof(Usuario.Nombre)),
+							Apellido = reader.GetString(nameof(Usuario.Apellido)),
+							Email = reader.GetString(nameof(Usuario.Email)),
+							Rol = reader.GetInt32(nameof(Usuario.Rol))
+						});
+					}
 				}
 			}
-			return res;
 		}
-
-
-
-
+		return usuarios;
+	}
 
 
 

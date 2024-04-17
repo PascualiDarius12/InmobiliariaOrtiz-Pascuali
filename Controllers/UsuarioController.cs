@@ -203,9 +203,9 @@ public class UsuarioController : Controller
         {
             return NotFound();
         }
-        
+
         ViewBag.Roles = Usuario.ObtenerRoles();
-       
+
 
         return View(usuario);
     }
@@ -271,11 +271,18 @@ public class UsuarioController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         // aca  nos redirige al inicio de sesion
-        
+
         return RedirectToAction(nameof(Login));
     }
 
 
+    //buscador por nombre
+    [HttpGet]
+    public IActionResult BuscarPorNombre(string nombre)
+    {
+        var listaUsuarios = ur.BuscarPorNombre(nombre);
+        return View("Index", listaUsuarios);
+    }
 
 
 
