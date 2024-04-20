@@ -194,7 +194,7 @@ public class UsuarioController : Controller
     }
 
     */
-    public IActionResult editar(int id)
+    public IActionResult Editar(int id)
     {
 
         var usuario = ur.ObtenerPorId(id);
@@ -218,27 +218,32 @@ public class UsuarioController : Controller
 
 
     [HttpPost]
-    public IActionResult editar(Usuario usuario)
+    public IActionResult Editar(Usuario usuario)
     {
-        if (ModelState.IsValid)
+        //hasheamos nueva contrasena si se modifico
+        Usuario UsuarioBuscado = ur.ObtenerPorId(usuario.IdUsuario);
+        if (usuario.Clave != UsuarioBuscado.Clave)
         {
-            //  modificación en la base de datos
-            int resultado = ur.Modificacion(usuario);
-            if (resultado > 0)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                // no se pudo modificar el usuario
-                ModelState.AddModelError(string.Empty, "No se pudo guardar la modificación del usuario.");
-            }
+            usuario = ur.crearClave(usuario, configuration);
         }
-        // Si hay errores de validación o si no se pudo modificar el usuario
-        // vuelve a mostrar el formulario de edición con los errores
-        ViewBag.Roles = Usuario.ObtenerRoles();
-        return View(usuario);
+        //  modificación en la base de datos
+        int resultado = ur.Modificacion(usuario);
+        if (resultado > 0)
+        {
+            ViewBag.Roles = Usuario.ObtenerRoles();
+            return RedirectToAction(nameof(Index));
+        }
+        else
+        {
+            ViewBag.Roles = Usuario.ObtenerRoles();
+            ViewBag.mensaje = "No se puedo guardar los datos";
+            return View(usuario);
+        }
+
+
+
     }
+
 
 
 
