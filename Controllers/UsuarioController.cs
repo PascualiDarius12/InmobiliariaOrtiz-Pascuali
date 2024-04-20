@@ -283,6 +283,14 @@ public class UsuarioController : Controller
 
     }
 
+    public ActionResult Perfil()
+		{
+			ViewData["Title"] = "Mi perfil";
+			var u = ur.ObtenerPorEmail(User.Identity.Name);
+			ViewBag.Roles = Usuario.ObtenerRoles();
+			return View("Editar", u);
+		}
+
 //     public async Task<IActionResult> ActualizarClaims(Usuario usuario){
 
 //         //actualizar claims 

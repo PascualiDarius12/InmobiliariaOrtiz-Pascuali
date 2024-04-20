@@ -96,7 +96,7 @@
                                     <img src="@urlAvatar" class="rounded-circle" style="width: 30px; height: 30px;">
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
-                                    <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Usuario" asp-action="Perfil" >Editar perfil</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <form id="logoutForm" asp-controller="Usuario" asp-action="Logout" method="post">
