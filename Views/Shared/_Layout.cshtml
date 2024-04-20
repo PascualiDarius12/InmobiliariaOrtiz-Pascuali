@@ -90,7 +90,7 @@
                     </ul>
                      
 
-                           @if (!string.IsNullOrEmpty(urlAvatar)){
+                           @if (User.Identity.IsAuthenticated){
                             <div class="dropdown">
                                 <button class="btn btn-outline-light dropdown-toggle" type="button" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="@urlAvatar" class="rounded-circle" style="width: 30px; height: 30px;">
