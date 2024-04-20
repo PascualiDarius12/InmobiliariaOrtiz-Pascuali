@@ -225,7 +225,35 @@ public class UsuarioController : Controller
         if (usuario.Clave != UsuarioBuscado.Clave)
         {
             usuario = ur.crearClave(usuario, configuration);
+
+
         }
+        //verificamos si cambio de avatar creamos la ruta nueva
+        if (usuario.AvatarFile != null)
+        {
+            Console.WriteLine("entro");
+            string wwwPath = environment.WebRootPath;
+            string path = Path.Combine(wwwPath, "Uploads");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string fileName = "avatar_" + usuario.IdUsuario + Path.GetExtension(usuario.AvatarFile.FileName);
+            string pathCompleto = Path.Combine(path, fileName);
+            usuario.Avatar = Path.Combine("/Uploads", fileName);
+
+            // Esta operación guarda la foto en memoria en la ruta que necesitamos
+            using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
+            {
+                usuario.AvatarFile.CopyTo(stream);
+            }
+        }else{
+            usuario.Avatar = UsuarioBuscado.Avatar;
+        }
+
+
+
         //  modificación en la base de datos
         int resultado = ur.Modificacion(usuario);
         if (resultado > 0)
@@ -242,9 +270,9 @@ public class UsuarioController : Controller
 
 
 
+
+
     }
-
-
 
 
 
