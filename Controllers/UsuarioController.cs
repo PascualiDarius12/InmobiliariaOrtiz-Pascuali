@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
 
 
 namespace InmobiliariaOrtiz_Pascuali.Controllers;
@@ -228,27 +229,31 @@ public class UsuarioController : Controller
 
 
         }
-        //verificamos si cambio de avatar creamos la ruta nueva
+        // Verificar si el usuario tiene un avatar existente con la misma ruta
         if (usuario.AvatarFile != null)
         {
-            Console.WriteLine("entro");
             string wwwPath = environment.WebRootPath;
             string path = Path.Combine(wwwPath, "Uploads");
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
             string fileName = "avatar_" + usuario.IdUsuario + Path.GetExtension(usuario.AvatarFile.FileName);
             string pathCompleto = Path.Combine(path, fileName);
-            usuario.Avatar = Path.Combine("/Uploads", fileName);
 
-            // Esta operación guarda la foto en memoria en la ruta que necesitamos
+            // Si el avatar existente tiene la misma ruta, sobrescribe el archivo
+            if (System.IO.File.Exists(pathCompleto))
+            {
+                // Borra el archivo existente antes de guardar el nuevo
+                System.IO.File.Delete(pathCompleto);
+            }
+
+            // Guarda el nuevo archivo de avatar
             using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
             {
                 usuario.AvatarFile.CopyTo(stream);
             }
-        }else{
+
+            usuario.Avatar = Path.Combine("/Uploads", fileName);
+        }
+        else
+        {
             usuario.Avatar = UsuarioBuscado.Avatar;
         }
 
@@ -258,7 +263,10 @@ public class UsuarioController : Controller
         int resultado = ur.Modificacion(usuario);
         if (resultado > 0)
         {
+
+            
             ViewBag.Roles = Usuario.ObtenerRoles();
+            
             return RedirectToAction(nameof(Index));
         }
         else
@@ -266,6 +274,7 @@ public class UsuarioController : Controller
             ViewBag.Roles = Usuario.ObtenerRoles();
             ViewBag.mensaje = "No se puedo guardar los datos";
             return View(usuario);
+           
         }
 
 
@@ -273,6 +282,42 @@ public class UsuarioController : Controller
 
 
     }
+
+//     public async Task<IActionResult> ActualizarClaims(Usuario usuario){
+
+//         //actualizar claims 
+//              var claims = new List<Claim>
+//                     {
+//                         new Claim(ClaimTypes.Name, usuario.Email),
+//                         new Claim("FullName", usuario.Nombre + " " + usuario.Apellido),
+//                         new Claim(ClaimTypes.Role, usuario.RolNombre),
+//                         new Claim("urlAvatar",usuario.Avatar)
+//                     };
+
+//             // Reemplazar las claims existentes con las nuevas claims
+            
+//     var existingClaims = await _userManager.GetClaimsAsync(user);
+//     await _userManager.RemoveClaimsAsync(user, existingClaims);
+//     await _userManager.AddClaimsAsync(user, claims);
+
+//     // Regenerar el token de autenticación
+//     await _signInManager.RefreshSignInAsync(user);
+
+//     // Guardar los cambios en el usuario
+//     var result = await _userManager.UpdateAsync(user);
+
+//     if (result.Succeeded)
+//     {
+//         // Redireccionar después de editar el usuario
+//         return RedirectToAction(nameof(Index));
+//     }
+//     else
+//     {
+//         // Manejar los errores si la actualización del usuario falla
+//         return View(usuarioEditado);
+//     }
+// }
+//     }
 
 
 
