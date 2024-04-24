@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace InmobiliariaOrtiz_Pascuali.Controllers;
@@ -17,12 +18,14 @@ public class UsuarioController : Controller
     private readonly UsuarioRepo ur = new UsuarioRepo();
     private readonly IConfiguration configuration;
     private readonly IWebHostEnvironment environment;
+    private readonly UserManager<Usuario> userManager;
 
-    public UsuarioController(IConfiguration configuration, IWebHostEnvironment environment, ILogger<PropietarioController> logger)
+    public UsuarioController(UserManager<Usuario> userManager, IConfiguration configuration, IWebHostEnvironment environment, ILogger<PropietarioController> logger)
     {
         _logger = logger;
         this.configuration = configuration;
         this.environment = environment;
+        userManager = userManager;
 
     }
 
@@ -215,73 +218,70 @@ public class UsuarioController : Controller
 
 
 
-
-
-
     [HttpPost]
-    public IActionResult Editar(Usuario usuario)
-    {
-        //hasheamos nueva contrasena si se modifico
-        Usuario UsuarioBuscado = ur.ObtenerPorId(usuario.IdUsuario);
-        if (usuario.Clave != UsuarioBuscado.Clave)
-        {
-            usuario = ur.crearClave(usuario, configuration);
+    // public IActionResult Editar(Usuario usuario)
+    // {
+    //     //hasheamos nueva contrasena si se modifico
+    //     Usuario UsuarioBuscado = ur.ObtenerPorId(usuario.IdUsuario);
+    //     if (usuario.Clave != UsuarioBuscado.Clave)
+    //     {
+    //         usuario = ur.crearClave(usuario, configuration);
 
 
-        }
-        // Verificar si el usuario tiene un avatar existente con la misma ruta
-        if (usuario.AvatarFile != null)
-        {
-            string wwwPath = environment.WebRootPath;
-            string path = Path.Combine(wwwPath, "Uploads");
-            string fileName = "avatar_" + usuario.IdUsuario + Path.GetExtension(usuario.AvatarFile.FileName);
-            string pathCompleto = Path.Combine(path, fileName);
+    //     }
+    //     // Verificar si el usuario tiene un avatar existente con la misma ruta
+    //     if (usuario.AvatarFile != null)
+    //     {
+    //         string wwwPath = environment.WebRootPath;
+    //         string path = Path.Combine(wwwPath, "Uploads");
+    //         string fileName = "avatar_" + usuario.IdUsuario + Path.GetExtension(usuario.AvatarFile.FileName);
+    //         string pathCompleto = Path.Combine(path, fileName);
 
-            // Si el avatar existente tiene la misma ruta, sobrescribe el archivo
-            if (System.IO.File.Exists(pathCompleto))
-            {
-                // Borra el archivo existente antes de guardar el nuevo
-                System.IO.File.Delete(pathCompleto);
-            }
+    //         // Si el avatar existente tiene la misma ruta, sobrescribe el archivo
+    //         if (System.IO.File.Exists(pathCompleto))
+    //         {
+    //             // Borra el archivo existente antes de guardar el nuevo
+    //             System.IO.File.Delete(pathCompleto);
+    //         }
 
-            // Guarda el nuevo archivo de avatar
-            using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
-            {
-                usuario.AvatarFile.CopyTo(stream);
-            }
+    //         // Guarda el nuevo archivo de avatar
+    //         using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
+    //         {
+    //             usuario.AvatarFile.CopyTo(stream);
+    //         }
 
-            usuario.Avatar = Path.Combine("/Uploads", fileName);
-        }
-        else
-        {
-            usuario.Avatar = UsuarioBuscado.Avatar;
-        }
+    //         usuario.Avatar = Path.Combine("/Uploads", fileName);
+    //     }
+    //     else
+    //     {
+    //         usuario.Avatar = UsuarioBuscado.Avatar;
+    //     }
 
 
 
-        //  modificación en la base de datos
-        int resultado = ur.Modificacion(usuario);
-        if (resultado > 0)
-        {
+    //     //  modificación en la base de datos
+    //     int resultado = ur.Modificacion(usuario);
+    //     if (resultado > 0)
+    //     {
 
             
-            ViewBag.Roles = Usuario.ObtenerRoles();
+    //         ViewBag.Roles = Usuario.ObtenerRoles();
             
-            return RedirectToAction(nameof(Index));
-        }
-        else
-        {
-            ViewBag.Roles = Usuario.ObtenerRoles();
-            ViewBag.mensaje = "No se puedo guardar los datos";
-            return View(usuario);
+    //         return RedirectToAction(nameof(Index));
+    //     }
+    //     else
+    //     {
+    //         ViewBag.Roles = Usuario.ObtenerRoles();
+    //         ViewBag.mensaje = "No se puedo guardar los datos";
+    //         return View(usuario);
            
-        }
+    //     }
 
 
 
 
 
-    }
+    // }
 
     public ActionResult Perfil()
 		{
