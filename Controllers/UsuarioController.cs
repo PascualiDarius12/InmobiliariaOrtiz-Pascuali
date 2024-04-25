@@ -304,7 +304,8 @@ public class UsuarioController : Controller
         }
         else
         {
-            usuario.Avatar = UsuarioBuscado.Avatar;
+            usuario.Avatar = "~/Uploads/usuario.jpg";
+            
         }
 
         //agregamos el rol si se dejo en blanco o edito perfil sin rol
