@@ -34,7 +34,7 @@
 				<p>Precio por mes: @Model.Valor</p>
 			</div>
 			<div class="">
-				<p>Pagos: -/@Model.pagos.Count()</p>
+				<p>Pagos: @Model.pagos.Count(p => p.Estado == true)/@Model.pagos.Count()</p>
 			</div>
 
 		</div>
