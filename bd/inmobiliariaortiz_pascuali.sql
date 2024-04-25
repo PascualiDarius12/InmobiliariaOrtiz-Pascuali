@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2024 a las 02:05:21
+-- Tiempo de generación: 25-04-2024 a las 04:05:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -132,13 +132,13 @@ INSERT INTO `pago` (`idPago`, `idContrato`, `monto`, `fecha_pago`, `estado`) VAL
 (45, 20, 250000, '2024-08-24', 0),
 (46, 20, 250000, '2024-09-24', 0),
 (47, 20, 250000, '2024-10-24', 0),
-(48, 21, 200000, '2024-04-24', 0),
-(49, 21, 200000, '2024-05-24', 0),
-(50, 21, 200000, '2024-06-24', 0),
-(51, 21, 200000, '2024-07-24', 0),
+(48, 21, 200000, '2024-04-24', 1),
+(49, 21, 200000, '2024-05-24', 1),
+(50, 21, 200000, '2024-06-24', 1),
+(51, 21, 200000, '2024-07-24', 1),
 (52, 21, 200000, '2024-08-24', 0),
 (53, 21, 200000, '2024-09-24', 0),
-(54, 22, 250000, '2024-04-24', 0),
+(54, 22, 250000, '2024-04-24', 1),
 (55, 22, 250000, '2024-05-24', 0),
 (56, 22, 250000, '2024-06-24', 0),
 (57, 22, 250000, '2024-07-24', 0),
@@ -209,7 +209,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `apellido`, `nombre`, `email`, `clave`, `rol`, `avatar`, `estado`) VALUES
-(29, 'Perez', 'Luciana', 'luciana@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads\\avatar_29.jpg', 0),
+(29, 'Perez', 'Luciana', 'luciana@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads/usuario.jpg', 0),
 (30, 'Pascuali', 'Dario', 'dario@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 2, '/Uploads\\avatar_30.webp', 0),
 (31, 'Pascuali', 'Wilson', 'wilson@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads\\avatar_31.jpg', 0),
 (32, 'Escudero', 'Marito', 'marito@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 2, '/Uploads\\avatar_32.jpg', 0),
