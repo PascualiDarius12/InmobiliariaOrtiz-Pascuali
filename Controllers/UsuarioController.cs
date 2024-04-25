@@ -496,12 +496,11 @@ public class UsuarioController : Controller
             TempData["Error"] = "Ocurrió un error al eliminar el usuario.";
         }
 
-        // Cerrar la sesión actual
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        
 
         // aca  nos redirige al inicio de sesion
 
-        return RedirectToAction(nameof(Login));
+        return RedirectToAction(nameof(Index));
     }
 
 
