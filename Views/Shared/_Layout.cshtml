@@ -131,10 +131,13 @@
         <main role="main" class="pb-3">
 
             @if (ViewBag.mensaje != null)
-            {
+            {   <div class="w-100 mt-2 d-flex justify-content-center">
+                <div class="w-50 d-flex justify-content-center">
                 <p class="alert alert-danger" role="alert">
                     @ViewBag.mensaje
                 </p>
+                </div>
+                </div>
             }
             @RenderBody()
         </main>

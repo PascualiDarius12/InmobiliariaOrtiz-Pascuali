@@ -19,7 +19,7 @@ public class ContratoController : Controller
 
     {
 
-
+        ViewBag.mensaje = TempData["mensaje"];
         ContratoRepo Cr = new ContratoRepo();
         var listaContratos = Cr.ObtenerTodos();
 
@@ -34,7 +34,7 @@ public class ContratoController : Controller
 
         ViewBag.Inquilinos = Ir.GetInquilinos();
         InmuebleRepo InmR = new InmuebleRepo();
-       
+
         ViewBag.Inmuebles = InmR.ObtenerTodos();
 
 
@@ -63,8 +63,8 @@ public class ContratoController : Controller
         if (!User.IsInRole("Administrador"))
         {
             string mensaje = "No posee los permisos suficientes para realizar esta accion";
-            ViewBag.mensaje = mensaje;
-            Console.WriteLine(ViewBag.mensaje);
+
+            TempData["mensaje"] = mensaje;
 
             return RedirectToAction(nameof(Index));
 
@@ -78,8 +78,12 @@ public class ContratoController : Controller
 
 
     }
+   
     public IActionResult Editar(int id)
+
+
     {
+       
         InquilinoRepo repoInq = new InquilinoRepo();
         ViewBag.Inquilinos = repoInq.GetInquilinos();
         InmuebleRepo repoInm = new InmuebleRepo();
@@ -172,7 +176,7 @@ public class ContratoController : Controller
 
 
 
-    
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

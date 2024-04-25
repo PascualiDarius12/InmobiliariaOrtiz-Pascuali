@@ -32,7 +32,7 @@ public class UsuarioController : Controller
 
     public IActionResult Index()
     {
-
+        ViewBag.mensaje = TempData["mensaje"];
         var listaUsuarios = ur.getUsuarios();
         return View(listaUsuarios);
     }
@@ -227,8 +227,8 @@ public class UsuarioController : Controller
         if (!User.IsInRole("Administrador"))
         {
             string mensaje = "No posee los permisos suficientes para realizar esta accion";
-            ViewBag.mensaje = mensaje;
-            Console.WriteLine(ViewBag.mensaje);
+
+            TempData["mensaje"] = mensaje;
 
             return RedirectToAction(nameof(Index));
 
@@ -262,17 +262,7 @@ public class UsuarioController : Controller
     [Authorize]
     public IActionResult Editar(Usuario usuario)
     {
-        if (!User.IsInRole("Administrador"))
-        {
-            string mensaje = "No posee los permisos suficientes para realizar esta accion";
-            ViewBag.mensaje = mensaje;
-            Console.WriteLine(ViewBag.mensaje);
-
-            return RedirectToAction(nameof(Index));
-
-
-
-        }
+       
         //hasheamos nueva contrasena si se modifico
         Usuario UsuarioBuscado = ur.ObtenerPorId(usuario.IdUsuario);
         if (usuario.Clave != UsuarioBuscado.Clave)
@@ -363,8 +353,9 @@ public class UsuarioController : Controller
         if (!User.IsInRole("Administrador"))
         {
             string mensaje = "No posee los permisos suficientes para realizar esta accion";
-            ViewBag.mensaje = mensaje;
-            Console.WriteLine(ViewBag.mensaje);
+            
+            TempData["mensaje"] = mensaje;
+            
 
             return RedirectToAction(nameof(Index));
 

@@ -16,6 +16,7 @@ public class InmuebleController : Controller
 
     public IActionResult Index()
     {
+        ViewBag.mensaje = TempData["mensaje"];
         InmuebleRepo Ir = new InmuebleRepo();
         var listaInmuebles = Ir.ObtenerTodos();
         return View(listaInmuebles);
@@ -71,9 +72,9 @@ public class InmuebleController : Controller
         
         if (!User.IsInRole("Administrador"))
     {
-        string mensaje =  "No posee los permisos suficientes para realizar esta accion";
-        ViewBag.mensaje = mensaje;
-        Console.WriteLine(ViewBag.mensaje);
+        string mensaje = "No posee los permisos suficientes para realizar esta accion";
+            
+            TempData["mensaje"] = mensaje;
         
         return RedirectToAction(nameof(Index));
         
