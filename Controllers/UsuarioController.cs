@@ -235,6 +235,8 @@ public class UsuarioController : Controller
 
 
         }
+        
+        
 
         var usuario = ur.ObtenerPorId(id);
 
@@ -341,22 +343,14 @@ public class UsuarioController : Controller
     [Authorize]
     public ActionResult Perfil()
     {
-        if (!User.IsInRole("Administrador"))
-        {
+        
 
             ViewData["Title"] = "Mi perfil";
             var u = ur.ObtenerPorEmail(User.Identity.Name);
             return View("Perfil", u);
 
 
-        }
-        else
-        {
-            ViewData["Title"] = "Mi perfil";
-            var u = ur.ObtenerPorEmail(User.Identity.Name);
-            ViewBag.Roles = Usuario.ObtenerRoles();
-            return View("Editar", u);
-        }
+        
     }
 
    
