@@ -1,9 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using InmobiliariaOrtiz_Pascuali.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InmobiliariaOrtiz_Pascuali.Controllers;
-
+[Authorize]
 public class InmuebleController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -63,10 +64,22 @@ public class InmuebleController : Controller
 
 
     }
-
+    [Authorize]
     public IActionResult Eliminar(int id)
 
     {
+        
+        if (!User.IsInRole("Administrador"))
+    {
+        string mensaje =  "No posee los permisos suficientes para realizar esta accion";
+        ViewBag.mensaje = mensaje;
+        Console.WriteLine(ViewBag.mensaje);
+        
+        return RedirectToAction(nameof(Index));
+        
+       
+        
+    }
         InmuebleRepo repo = new InmuebleRepo();
         repo.Eliminar(id);
 

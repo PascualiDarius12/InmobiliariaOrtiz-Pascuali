@@ -7,25 +7,23 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace InmobiliariaOrtiz_Pascuali.Controllers;
-
+[Authorize]
 public class UsuarioController : Controller
 {
     private readonly ILogger<PropietarioController> _logger;
     private readonly UsuarioRepo ur = new UsuarioRepo();
     private readonly IConfiguration configuration;
     private readonly IWebHostEnvironment environment;
-    private readonly UserManager<Usuario> userManager;
 
-    public UsuarioController(UserManager<Usuario> userManager, IConfiguration configuration, IWebHostEnvironment environment, ILogger<PropietarioController> logger)
+    public UsuarioController(IConfiguration configuration, IWebHostEnvironment environment, ILogger<PropietarioController> logger)
     {
         _logger = logger;
         this.configuration = configuration;
         this.environment = environment;
-        userManager = userManager;
 
     }
 
@@ -48,10 +46,21 @@ public class UsuarioController : Controller
 
 
 
-
+    [Authorize]
     public IActionResult Registro()
 
     {
+        if (!User.IsInRole("Administrador"))
+        {
+            string mensaje = "No posee los permisos suficientes para realizar esta accion";
+            ViewBag.mensaje = mensaje;
+            Console.WriteLine(ViewBag.mensaje);
+
+            return RedirectToAction(nameof(Index));
+
+
+
+        }
         ViewBag.Roles = Usuario.ObtenerRoles();
 
 
@@ -61,9 +70,21 @@ public class UsuarioController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public IActionResult Registro(Usuario usuario)
 
     {
+        if (!User.IsInRole("Administrador"))
+        {
+            string mensaje = "No posee los permisos suficientes para realizar esta accion";
+            ViewBag.mensaje = mensaje;
+            Console.WriteLine(ViewBag.mensaje);
+
+            return RedirectToAction(nameof(Index));
+
+
+
+        }
         // if (ModelState.IsValid) //este para saber que el objeto q trae el formulario  corresponde al modelo
         // {
         usuario = ur.crearClave(usuario, configuration);
@@ -102,6 +123,7 @@ public class UsuarioController : Controller
     }
 
     // GET: Usuarios/Login/
+[AllowAnonymous]
     public ActionResult Login(string returnUrl)
     {
         TempData["returnUrl"] = returnUrl;
@@ -110,6 +132,7 @@ public class UsuarioController : Controller
 
 
     [HttpPost]
+[AllowAnonymous]
     public async Task<IActionResult> Login(LoginView login)
     {
 
@@ -198,14 +221,26 @@ public class UsuarioController : Controller
     }
 
     */
+    [Authorize]
     public IActionResult Editar(int id)
     {
+        if (!User.IsInRole("Administrador"))
+        {
+            string mensaje = "No posee los permisos suficientes para realizar esta accion";
+            ViewBag.mensaje = mensaje;
+            Console.WriteLine(ViewBag.mensaje);
+
+            return RedirectToAction(nameof(Index));
+
+
+
+        }
 
         var usuario = ur.ObtenerPorId(id);
 
-        if (usuario == null)
+        if (usuario.Email == User.Identity.Name)
         {
-            return NotFound();
+            return View("Perfil",usuario);
         }
 
         ViewBag.Roles = Usuario.ObtenerRoles();
@@ -218,114 +253,146 @@ public class UsuarioController : Controller
 
 
 
+
+
+
     [HttpPost]
-    // public IActionResult Editar(Usuario usuario)
-    // {
-    //     //hasheamos nueva contrasena si se modifico
-    //     Usuario UsuarioBuscado = ur.ObtenerPorId(usuario.IdUsuario);
-    //     if (usuario.Clave != UsuarioBuscado.Clave)
+    [Authorize]
+    public IActionResult Editar(Usuario usuario)
+    {
+        if (!User.IsInRole("Administrador"))
+        {
+            string mensaje = "No posee los permisos suficientes para realizar esta accion";
+            ViewBag.mensaje = mensaje;
+            Console.WriteLine(ViewBag.mensaje);
+
+            return RedirectToAction(nameof(Index));
+
+
+
+        }
+        //hasheamos nueva contrasena si se modifico
+        Usuario UsuarioBuscado = ur.ObtenerPorId(usuario.IdUsuario);
+        if (usuario.Clave != UsuarioBuscado.Clave)
+        {
+            usuario = ur.crearClave(usuario, configuration);
+
+
+        }
+        // Verificar si el usuario tiene un avatar existente con la misma ruta
+        if (usuario.AvatarFile != null)
+        {
+            string wwwPath = environment.WebRootPath;
+            string path = Path.Combine(wwwPath, "Uploads");
+            string fileName = "avatar_" + usuario.IdUsuario + Path.GetExtension(usuario.AvatarFile.FileName);
+            string pathCompleto = Path.Combine(path, fileName);
+
+            // Si el avatar existente tiene la misma ruta, sobrescribe el archivo
+            if (System.IO.File.Exists(pathCompleto))
+            {
+                // Borra el archivo existente antes de guardar el nuevo
+                System.IO.File.Delete(pathCompleto);
+            }
+
+            // Guarda el nuevo archivo de avatar
+            using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
+            {
+                usuario.AvatarFile.CopyTo(stream);
+            }
+
+            usuario.Avatar = Path.Combine("/Uploads", fileName);
+        }
+        else
+        {
+            usuario.Avatar = UsuarioBuscado.Avatar;
+        }
+
+        //agregamos el rol si se dejo en blanco o edito perfil sin rol
+        if(usuario.Rol==0){
+          usuario.Rol = UsuarioBuscado.Rol;
+        }
+        
+
+        //  modificación en la base de datos
+        int resultado = ur.Modificacion(usuario);
+        if (resultado > 0)
+        {
+
+
+            ViewBag.Roles = Usuario.ObtenerRoles();
+
+            return RedirectToAction(nameof(Index));
+        }
+        else
+        {
+            ViewBag.Roles = Usuario.ObtenerRoles();
+            ViewBag.mensaje = "No se puedo guardar los datos";
+            return View(usuario);
+
+        }
+
+
+
+
+
+    }
+
+    [Authorize]
+    public ActionResult Perfil()
+    {
+        if (!User.IsInRole("Administrador"))
+        {
+
+            ViewData["Title"] = "Mi perfil";
+            var u = ur.ObtenerPorEmail(User.Identity.Name);
+            return View("Perfil", u);
+
+
+        }
+        else
+        {
+            ViewData["Title"] = "Mi perfil";
+            var u = ur.ObtenerPorEmail(User.Identity.Name);
+            ViewBag.Roles = Usuario.ObtenerRoles();
+            return View("Editar", u);
+        }
+    }
+
+    //     public async Task<IActionResult> ActualizarClaims(Usuario usuario){
+
+    //         //actualizar claims 
+    //              var claims = new List<Claim>
+    //                     {
+    //                         new Claim(ClaimTypes.Name, usuario.Email),
+    //                         new Claim("FullName", usuario.Nombre + " " + usuario.Apellido),
+    //                         new Claim(ClaimTypes.Role, usuario.RolNombre),
+    //                         new Claim("urlAvatar",usuario.Avatar)
+    //                     };
+
+    //             // Reemplazar las claims existentes con las nuevas claims
+
+    //     var existingClaims = await _userManager.GetClaimsAsync(user);
+    //     await _userManager.RemoveClaimsAsync(user, existingClaims);
+    //     await _userManager.AddClaimsAsync(user, claims);
+
+    //     // Regenerar el token de autenticación
+    //     await _signInManager.RefreshSignInAsync(user);
+
+    //     // Guardar los cambios en el usuario
+    //     var result = await _userManager.UpdateAsync(user);
+
+    //     if (result.Succeeded)
     //     {
-    //         usuario = ur.crearClave(usuario, configuration);
-
-
-    //     }
-    //     // Verificar si el usuario tiene un avatar existente con la misma ruta
-    //     if (usuario.AvatarFile != null)
-    //     {
-    //         string wwwPath = environment.WebRootPath;
-    //         string path = Path.Combine(wwwPath, "Uploads");
-    //         string fileName = "avatar_" + usuario.IdUsuario + Path.GetExtension(usuario.AvatarFile.FileName);
-    //         string pathCompleto = Path.Combine(path, fileName);
-
-    //         // Si el avatar existente tiene la misma ruta, sobrescribe el archivo
-    //         if (System.IO.File.Exists(pathCompleto))
-    //         {
-    //             // Borra el archivo existente antes de guardar el nuevo
-    //             System.IO.File.Delete(pathCompleto);
-    //         }
-
-    //         // Guarda el nuevo archivo de avatar
-    //         using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
-    //         {
-    //             usuario.AvatarFile.CopyTo(stream);
-    //         }
-
-    //         usuario.Avatar = Path.Combine("/Uploads", fileName);
-    //     }
-    //     else
-    //     {
-    //         usuario.Avatar = UsuarioBuscado.Avatar;
-    //     }
-
-
-
-    //     //  modificación en la base de datos
-    //     int resultado = ur.Modificacion(usuario);
-    //     if (resultado > 0)
-    //     {
-
-            
-    //         ViewBag.Roles = Usuario.ObtenerRoles();
-            
+    //         // Redireccionar después de editar el usuario
     //         return RedirectToAction(nameof(Index));
     //     }
     //     else
     //     {
-    //         ViewBag.Roles = Usuario.ObtenerRoles();
-    //         ViewBag.mensaje = "No se puedo guardar los datos";
-    //         return View(usuario);
-           
+    //         // Manejar los errores si la actualización del usuario falla
+    //         return View(usuarioEditado);
     //     }
-
-
-
-
-
     // }
-
-    public ActionResult Perfil()
-		{
-			ViewData["Title"] = "Mi perfil";
-			var u = ur.ObtenerPorEmail(User.Identity.Name);
-			ViewBag.Roles = Usuario.ObtenerRoles();
-			return View("Editar", u);
-		}
-
-//     public async Task<IActionResult> ActualizarClaims(Usuario usuario){
-
-//         //actualizar claims 
-//              var claims = new List<Claim>
-//                     {
-//                         new Claim(ClaimTypes.Name, usuario.Email),
-//                         new Claim("FullName", usuario.Nombre + " " + usuario.Apellido),
-//                         new Claim(ClaimTypes.Role, usuario.RolNombre),
-//                         new Claim("urlAvatar",usuario.Avatar)
-//                     };
-
-//             // Reemplazar las claims existentes con las nuevas claims
-            
-//     var existingClaims = await _userManager.GetClaimsAsync(user);
-//     await _userManager.RemoveClaimsAsync(user, existingClaims);
-//     await _userManager.AddClaimsAsync(user, claims);
-
-//     // Regenerar el token de autenticación
-//     await _signInManager.RefreshSignInAsync(user);
-
-//     // Guardar los cambios en el usuario
-//     var result = await _userManager.UpdateAsync(user);
-
-//     if (result.Succeeded)
-//     {
-//         // Redireccionar después de editar el usuario
-//         return RedirectToAction(nameof(Index));
-//     }
-//     else
-//     {
-//         // Manejar los errores si la actualización del usuario falla
-//         return View(usuarioEditado);
-//     }
-// }
-//     }
+    //     }
 
 
 
@@ -344,8 +411,21 @@ public class UsuarioController : Controller
     */
 
     //eliminar un usuario
+    [Authorize]
     public async Task<IActionResult> Eliminar(int id)
     {
+
+        if (!User.IsInRole("Administrador"))
+        {
+            string mensaje = "No posee los permisos suficientes para realizar esta accion";
+            ViewBag.mensaje = mensaje;
+            Console.WriteLine(ViewBag.mensaje);
+
+            return RedirectToAction(nameof(Index));
+
+
+
+        }
         Console.WriteLine(id);
         var resultado = ur.Eliminar(id);
         if (resultado == -1)

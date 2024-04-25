@@ -4,7 +4,7 @@ using InmobiliariaOrtiz_Pascuali.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace InmobiliariaOrtiz_Pascuali.Controllers;
-
+[Authorize]
 public class PropietarioController : Controller
 {
     private readonly ILogger<PropietarioController> _logger;
@@ -67,9 +67,13 @@ public class PropietarioController : Controller
     {
         if (!User.IsInRole("Administrador"))
     {
-        ViewBag.mensaje = "No posee los permisos suficientes para realizar esta accion";
+        string mensaje =  "No posee los permisos suficientes para realizar esta accion";
+        ViewBag.mensaje = mensaje;
+        Console.WriteLine(ViewBag.mensaje);
         
         return RedirectToAction(nameof(Index));
+        
+       
         
     }
         Console.WriteLine(id);

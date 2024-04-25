@@ -14,7 +14,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/InmobiliariaOrtiz_Pascuali.styles.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/InmobiliariaOrtiz_Pascuali.styles.css" asp-append-version="true" /> *@
 </head>
 
 
@@ -39,6 +39,7 @@
             class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
 
             <div class="container-fluid">
+
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,31 +85,36 @@
 
 
 
-                           
+
                         }
 
                     </ul>
-                     
 
-                           @if (User.Identity.IsAuthenticated){
-                            <div class="dropdown">
-                                <button class="btn btn-outline-light dropdown-toggle" type="button" id="avatarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="@urlAvatar" class="rounded-circle" style="width: 30px; height: 30px;">
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
-                                    <li><a class="dropdown-item" asp-controller="Usuario" asp-action="Perfil" >Editar perfil</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form id="logoutForm" asp-controller="Usuario" asp-action="Logout" method="post">
-                                           
-                                            <button type="submit" class="btn btn-link dropdown-item">Cerrar sesión</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
 
-                            
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="avatarDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="@urlAvatar" class="rounded-circle" style="width: 30px; height: 30px;">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
+                                <li><a class="dropdown-item" asp-controller="Usuario" asp-action="Perfil">Editar perfil</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form id="logoutForm" asp-controller="Usuario" asp-action="Logout" method="post">
+
+                                        <button type="submit" class="btn btn-link dropdown-item">Cerrar sesión</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+
 
 
 
@@ -123,9 +129,13 @@
 
     <div class="">
         <main role="main" class="pb-3">
-            <div>
-                <p>@ViewBag.mensaje</p>
-            </div>
+
+            @if (ViewBag.mensaje != null)
+            {
+                <p class="alert alert-danger" role="alert">
+                    @ViewBag.mensaje
+                </p>
+            }
             @RenderBody()
         </main>
     </div>
