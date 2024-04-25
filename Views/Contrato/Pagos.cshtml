@@ -37,7 +37,8 @@
                         <td>@pago.IdContrato</td>
                         <td>@pago.Monto</td>
                         <td>@pago.Fecha_pago.ToString("dd/MM/yyyy")</td>
-                        <td>@if (pago.Estado)
+                        <td>
+                            @if (pago.Estado)
                             {
                                 <span style="color: green;">Pagado</span>
                             }
@@ -47,11 +48,15 @@
                             }
                         </td>
                         <td>
-                            <div class="w-100">
-                                <a asp-action="Pagar" asp-route-id="@pago.IdPago" title="Ver mas">
-                                    <i class="fa-solid fa-money-bill px-1 text-success"></i>
-                                </a>
-                            </div>
+                            @if (!pago.Estado)
+                            {
+                                <div class="w-100">
+                                    <a asp-action="Pagar" asp-route-id="@pago.IdPago" title="Ver mas">
+                                        <i class="fa-solid fa-money-bill px-1 text-success"></i>
+                                    </a>
+                                </div>
+                            }
+
                         </td>
                     </tr>
                 }

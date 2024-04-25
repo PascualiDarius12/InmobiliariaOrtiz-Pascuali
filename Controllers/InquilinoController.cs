@@ -23,7 +23,7 @@ public class InquilinoController : Controller
     public IActionResult editar(int id)
     {
         Console.WriteLine(id);
-        //logica para mostrar el formulario vacio o lleno con el propietario que queremos editar
+        
         if (id > 0)
         {
             InquilinoRepo repo = new InquilinoRepo();

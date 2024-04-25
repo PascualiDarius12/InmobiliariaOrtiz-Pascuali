@@ -359,57 +359,7 @@ public class UsuarioController : Controller
         }
     }
 
-    //     public async Task<IActionResult> ActualizarClaims(Usuario usuario){
-
-    //         //actualizar claims 
-    //              var claims = new List<Claim>
-    //                     {
-    //                         new Claim(ClaimTypes.Name, usuario.Email),
-    //                         new Claim("FullName", usuario.Nombre + " " + usuario.Apellido),
-    //                         new Claim(ClaimTypes.Role, usuario.RolNombre),
-    //                         new Claim("urlAvatar",usuario.Avatar)
-    //                     };
-
-    //             // Reemplazar las claims existentes con las nuevas claims
-
-    //     var existingClaims = await _userManager.GetClaimsAsync(user);
-    //     await _userManager.RemoveClaimsAsync(user, existingClaims);
-    //     await _userManager.AddClaimsAsync(user, claims);
-
-    //     // Regenerar el token de autenticación
-    //     await _signInManager.RefreshSignInAsync(user);
-
-    //     // Guardar los cambios en el usuario
-    //     var result = await _userManager.UpdateAsync(user);
-
-    //     if (result.Succeeded)
-    //     {
-    //         // Redireccionar después de editar el usuario
-    //         return RedirectToAction(nameof(Index));
-    //     }
-    //     else
-    //     {
-    //         // Manejar los errores si la actualización del usuario falla
-    //         return View(usuarioEditado);
-    //     }
-    // }
-    //     }
-
-
-
-    /*
-        //eliminar un usuario
-        public IActionResult Eliminar(int id)
-        {
-            Console.WriteLine(id);
-            var resultado = ur.Eliminar(id);
-            if (resultado == -1)
-            {
-                TempData["Error"] = "Ocurrió un error al eliminar el usuario.";
-            }
-            return RedirectToAction(nameof(Index));
-        }
-    */
+   
 
     //eliminar un usuario
     [Authorize]

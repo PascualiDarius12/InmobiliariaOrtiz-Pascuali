@@ -70,7 +70,7 @@ public class ContratoRepo
 		IList<Pago> pagos = new List<Pago>();
 		using (var connection = new MySqlConnection(connectionString))
 		{
-			string sql = @"SELECT IdPago, Fecha_pago, Monto
+			string sql = @"SELECT IdPago, Fecha_pago, Monto, Estado
                       FROM Pago
                       WHERE IdContrato = @IdContrato";
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
@@ -86,6 +86,7 @@ public class ContratoRepo
 						IdPago = reader.GetInt32(0),
 						Fecha_pago = reader.GetDateTime(1),
 						Monto = reader.GetInt32(2),
+						Estado = reader.GetBoolean(3),
 						IdContrato = id,
 					};
 					pagos.Add(pago);
@@ -236,6 +237,70 @@ public class ContratoRepo
 		}
 		return entidad;
 	}
+	public Pago BuscarPago(int id)
+	{
+
+
+		Pago entidad = null;
+		using (var connection = new MySqlConnection(connectionString))
+		{
+			
+			string sql = @"SELECT IdContrato, Monto, Fecha_pago, Estado
+			            FROM Pago
+                        WHERE IdPago = @id";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.Parameters.AddWithValue("@id", id);
+				command.CommandType = CommandType.Text;
+				connection.Open();
+				var reader = command.ExecuteReader();
+				if (reader.Read())
+				{
+					entidad = new Pago
+					{
+						IdContrato = reader.GetInt32(0),
+						Monto = reader.GetDouble(1),
+						Fecha_pago = reader.GetDateTime(2),
+						Estado = reader.GetBoolean(3),
+						IdPago = id,
+
+						
+					};
+				}
+				connection.Close();
+			}
+		}
+		return entidad;
+	}
+
+	public void ActualizarPago(Pago pago)
+{
+    using (var connection = new MySqlConnection(connectionString))
+    {
+        string sql = @"UPDATE Pago
+                       SET IdContrato = @idContrato, 
+                           Monto = @monto, 
+                           Fecha_pago = @fecha_pago, 
+                           Estado = @estado
+                       WHERE IdPago = @idPago";
+                       
+        using (MySqlCommand command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddWithValue("@idContrato", pago.IdContrato);
+            command.Parameters.AddWithValue("@monto", pago.Monto);
+            command.Parameters.AddWithValue("@fecha_pago", pago.Fecha_pago);
+            command.Parameters.AddWithValue("@estado", true);
+            command.Parameters.AddWithValue("@idPago", pago.IdPago); 
+            
+            command.CommandType = CommandType.Text;
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+    }
+}
+
+
 
 	public int ModificarContrato(Contrato entidad)
 

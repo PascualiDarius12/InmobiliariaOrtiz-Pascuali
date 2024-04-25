@@ -72,7 +72,7 @@
                     <td>@item.inmueble.Direccion</td>
                     <td>@item.inmueble.Coordenadas</td>
                     <td>
-                        -/@item.pagos.Count()
+                        @item.pagos.Count(p => p.Estado == true)/@item.pagos.Count()
                     </td>
                     <td>
                         <div class="w-100">

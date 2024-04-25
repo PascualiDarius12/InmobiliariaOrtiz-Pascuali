@@ -34,8 +34,7 @@ public class ContratoController : Controller
 
         ViewBag.Inquilinos = Ir.GetInquilinos();
         InmuebleRepo InmR = new InmuebleRepo();
-        //obtener solo los inmuebles disponibles
-        // ViewBag.Inmuebles = InmR.ObtenerTodos().Where(inmueble => inmueble.Estado==true).ToList();
+       
         ViewBag.Inmuebles = InmR.ObtenerTodos();
 
 
@@ -137,12 +136,17 @@ public class ContratoController : Controller
     {
 
         ContratoRepo repo = new ContratoRepo();
+        Pago pago = repo.BuscarPago(id);
+        Console.WriteLine(pago.IdContrato);
         Contrato contrato = repo.BuscarContrato(id);
 
 
-        if (contrato != null)
+
+
+        if (pago != null)
         {
-            return View(contrato); // Pasar un solo objeto Contrato a la vista
+            repo.ActualizarPago(pago);
+            return RedirectToAction(nameof(Pagos), new { id = pago.IdContrato });
         }
         else
         {
@@ -150,6 +154,9 @@ public class ContratoController : Controller
             return NotFound();
         }
     }
+
+
+
 
 
     public IActionResult BuscarPorDNI(string dni)
@@ -165,16 +172,7 @@ public class ContratoController : Controller
 
 
 
-    /*
-
-        [HttpPost]
-        public IActionResult RealizarPago(int contratoId)
-        {
-            // Aquí puedes agregar la lógica para procesar el pago del contrato
-            // Puedes acceder al ID del contrato enviado desde el formulario a través del parámetro contratoId
-            return RedirectToAction(nameof(Index)); // Redirige a la página de contratos después de realizar el pago
-        }
-    */
+    
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

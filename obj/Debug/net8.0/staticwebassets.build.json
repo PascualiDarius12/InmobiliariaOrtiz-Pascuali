@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ev23glnDS10uNXZC0JV0sWBTxdoGa6g2b9X7ZIhT/2M=",
+  "Hash": "LNUUVfAYXnogMpWmZvRCK1IeLSvvpNPtOSJfJpki374=",
   "Source": "InmobiliariaOrtiz-Pascuali",
   "BasePath": "_content/InmobiliariaOrtiz-Pascuali",
   "Mode": "Default",
@@ -1499,12 +1499,12 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\avatar_33.jpg"
     },
     {
-      "Identity": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\Uploads\\usuario.png",
+      "Identity": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\Uploads\\usuario.jpg",
       "SourceId": "InmobiliariaOrtiz-Pascuali",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\",
       "BasePath": "_content/InmobiliariaOrtiz-Pascuali",
-      "RelativePath": "Uploads/usuario.png",
+      "RelativePath": "Uploads/usuario.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1515,7 +1515,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Uploads\\usuario.png"
+      "OriginalItemSpec": "wwwroot\\Uploads\\usuario.jpg"
     }
   ]
 }
