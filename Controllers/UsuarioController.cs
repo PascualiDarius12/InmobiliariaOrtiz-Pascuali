@@ -343,23 +343,32 @@ public class UsuarioController : Controller
     public ActionResult EliminarFoto(int id)
     {
 
-        if (User.IsInRole("Administrador"))
-        {
-
-            ur.EliminarAvatar(id);
-
-            ViewBag.Roles = Usuario.ObtenerRoles();
-
-            return View("Perfil", ur.ObtenerPorId(id));
-
-
-        }
-
+       
         ur.EliminarAvatar(id);
 
         ViewBag.Roles = Usuario.ObtenerRoles();
 
         return View("Editar", ur.ObtenerPorId(id));
+    }
+     [Authorize]
+    public ActionResult EliminarFotoPerfil(int id)
+    {
+
+       
+        
+
+            ur.EliminarAvatar(id);
+
+            // ViewBag.Roles = Usuario.ObtenerRoles();
+
+            // return View("Perfil", ur.ObtenerPorId(id));
+
+            return RedirectToAction(nameof(Index));
+
+
+        
+
+        
     }
 
     [Authorize]
@@ -424,18 +433,20 @@ public class UsuarioController : Controller
         int resultado = ur.ModificarAvatar(usuario.IdUsuario, usuario.Avatar);
 
 
-        if (User.IsInRole("Administrador"))
-        {
+        // if (usuario.Email == User.Identity.Name)
+        // {
 
-            ViewBag.Roles = Usuario.ObtenerRoles();
+        //     ViewBag.Roles = Usuario.ObtenerRoles();
 
-            return View("Perfil", ur.ObtenerPorId(usuario.IdUsuario));
+        //     return View("Perfil", ur.ObtenerPorId(usuario.IdUsuario));
 
 
-        }
-        ViewBag.Roles = Usuario.ObtenerRoles();
+        // }
+        // ViewBag.Roles = Usuario.ObtenerRoles();
 
-        return View("Editar", ur.ObtenerPorId(usuario.IdUsuario));
+        // return View("Editar", ur.ObtenerPorId(usuario.IdUsuario));
+
+          return RedirectToAction(nameof(Index));
 
 
 
