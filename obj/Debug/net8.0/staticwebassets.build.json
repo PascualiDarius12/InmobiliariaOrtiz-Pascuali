@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LNUUVfAYXnogMpWmZvRCK1IeLSvvpNPtOSJfJpki374=",
+  "Hash": "W5x3RR6rL7GoC9I/DYv696OrFeebNqeVOvbnY/RL/JY=",
   "Source": "InmobiliariaOrtiz-Pascuali",
   "BasePath": "_content/InmobiliariaOrtiz-Pascuali",
   "Mode": "Default",
@@ -1421,6 +1421,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\avatar_29.webp"
+    },
+    {
+      "Identity": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\Uploads\\avatar_30.jpg",
+      "SourceId": "InmobiliariaOrtiz-Pascuali",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\",
+      "BasePath": "_content/InmobiliariaOrtiz-Pascuali",
+      "RelativePath": "Uploads/avatar_30.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_30.jpg"
     },
     {
       "Identity": "C:\\Users\\54266\\Desktop\\Carpetas\\Estudio\\Desarrollo de Software\\Laboratorio 2\\repositorio\\InmobiliariaOrtiz-Pascuali\\wwwroot\\Uploads\\avatar_30.webp",

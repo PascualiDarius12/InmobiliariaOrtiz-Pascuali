@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using InmobiliariaOrtiz_Pascuali.Models;
 namespace InmobiliariaOrtiz_Pascuali.Models;
 
@@ -19,7 +20,7 @@ public class Usuario
     public string Apellido { get; set; }
 
     public string Email { get; set; }
-
+    [Required(ErrorMessage = "El campo clave es obligatorio.")]
     public string Clave { get; set; }
     public string Avatar { get; set; }
 

@@ -138,14 +138,14 @@ public class UsuarioRepo
 		using (MySqlConnection connection = new MySqlConnection(connectionString))
 		{
 			string sql = @"UPDATE Usuario
-					SET Nombre=@nombre, Apellido=@apellido, Avatar=@avatar, Email=@email, Clave=@clave, Rol=@rol
+					SET Nombre=@nombre, Apellido=@apellido, Email=@email, Clave=@clave, Rol=@rol
 					WHERE IdUsuario = @id";
 			using (MySqlCommand command = new MySqlCommand(sql, connection))
 			{
 				command.CommandType = CommandType.Text;
 				command.Parameters.AddWithValue("@nombre", e.Nombre);
 				command.Parameters.AddWithValue("@apellido", e.Apellido);
-				command.Parameters.AddWithValue("@avatar", e.Avatar);
+
 				command.Parameters.AddWithValue("@email", e.Email);
 				command.Parameters.AddWithValue("@clave", e.Clave);
 				command.Parameters.AddWithValue("@rol", e.Rol);
@@ -193,7 +193,46 @@ public class UsuarioRepo
 	}
 
 
+public int ModificarAvatar(int idUsuario, string nuevoAvatar)
+{
+    int res = -1;
+    using (MySqlConnection connection = new MySqlConnection(connectionString))
+    {
+        string sql = @"UPDATE Usuario
+                       SET Avatar = @avatar
+                       WHERE IdUsuario = @id";
+        using (MySqlCommand command = new MySqlCommand(sql, connection))
+        {
+            command.CommandType = CommandType.Text;
+            command.Parameters.AddWithValue("@avatar", nuevoAvatar);
+            command.Parameters.AddWithValue("@id", idUsuario);
+            connection.Open();
+            res = command.ExecuteNonQuery();
+            connection.Close();
+        }
+    }
+    return res;
+}
 
+public int EliminarAvatar(int idUsuario)
+{
+    int res = -1;
+    using (MySqlConnection connection = new MySqlConnection(connectionString))
+    {
+        string sql = @"UPDATE Usuario
+                       SET Avatar = ''
+                       WHERE IdUsuario = @id";
+        using (MySqlCommand command = new MySqlCommand(sql, connection))
+        {
+            command.CommandType = CommandType.Text;
+            command.Parameters.AddWithValue("@id", idUsuario);
+            connection.Open();
+            res = command.ExecuteNonQuery();
+            connection.Close();
+        }
+    }
+    return res;
+}
 
 
 	public Usuario ObtenerPorId(int id)

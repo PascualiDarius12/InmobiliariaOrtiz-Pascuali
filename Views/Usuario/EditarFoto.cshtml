@@ -1,0 +1,48 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h5 class="m-4 text-center w-100">@ViewData["Title"]</h5>
+
+<div class="container">
+    <form asp-action="EditarFoto" method="post" enctype="multipart/form-data">
+
+        <div class="d-flex flex-row justify-content-center">
+
+
+            <div class="card p-3 m-2">
+
+
+                <div class="form-group">
+                    <label asp-for="AvatarFile" class="control-label">Archivo:</label>
+                    <input type="file" name="AvatarFile" class="form-control" />
+
+
+                </div>
+
+            </div>
+            <div class="card p-3 m-2 d-flex d-none">
+
+
+
+                <div class="form-group">
+                    <label asp-for="IdUsuario"></label>
+                    <input asp-for="IdUsuario" class="form-control" readonly />
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="w-100 d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary m-2">Guardar</button>
+                <a class="btn btn-secondary m-2" asp-action="Index">Volver</a>
+            </div>
+        </div>
+    </form>
+</div>

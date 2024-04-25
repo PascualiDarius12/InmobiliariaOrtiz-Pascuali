@@ -126,7 +126,8 @@ public class ContratoRepo
 				insertContratoCommand.Parameters.AddWithValue("@IdInmueble", contrato.IdInmueble);
 				insertContratoCommand.Parameters.AddWithValue("@IdInquilino", contrato.IdInquilino);
 				InmuebleRepo inmr = new InmuebleRepo();
-				insertContratoCommand.Parameters.AddWithValue("@Valor", inmr.BuscarInmueble(contrato.IdInmueble).Precio);
+				//insertContratoCommand.Parameters.AddWithValue("@Valor", inmr.BuscarInmueble(contrato.IdInmueble).Precio);
+				insertContratoCommand.Parameters.AddWithValue("@Valor", contrato.Valor);
 
 				try
 				{
@@ -140,7 +141,8 @@ public class ContratoRepo
 					// Calcular el monto de cada pago (suponiendo que el contrato tiene un monto fijo por mes)
 					
 
-					double montoPorMes = inmr.BuscarInmueble(contrato.IdInmueble).Precio; // Puedes ajustar este valor según sea necesario
+					//double montoPorMes = inmr.BuscarInmueble(contrato.IdInmueble).Precio; // Puedes ajustar este valor según sea necesario
+					double montoPorMes = contrato.Valor;
 					double montoTotal = meses * montoPorMes;
 
 					// Crear y ejecutar las inserciones de pagos para cada mes
