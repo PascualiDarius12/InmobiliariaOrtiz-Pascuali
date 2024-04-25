@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2024 a las 04:05:23
+-- Tiempo de generación: 26-04-2024 a las 01:37:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -48,7 +48,8 @@ INSERT INTO `contrato` (`idContrato`, `idInquilino`, `idInmueble`, `fecha_inicio
 (21, 2, 24, '2024-04-24', '2024-10-24', 200000, 0, 0),
 (22, 5, 25, '2024-04-24', '2024-11-24', 250000, 0, 0),
 (23, 7, 26, '2024-04-24', '2024-11-24', 150000, 0, 0),
-(24, 8, 27, '2024-04-24', '2025-02-24', 340000, 0, 0);
+(24, 8, 27, '2024-04-24', '2025-02-24', 340000, 0, 0),
+(25, 8, 27, '2024-04-25', '2024-09-25', 430000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -161,7 +162,12 @@ INSERT INTO `pago` (`idPago`, `idContrato`, `monto`, `fecha_pago`, `estado`) VAL
 (74, 24, 340000, '2024-10-24', 0),
 (75, 24, 340000, '2024-11-24', 0),
 (76, 24, 340000, '2024-12-24', 0),
-(77, 24, 340000, '2025-01-24', 0);
+(77, 24, 340000, '2025-01-24', 0),
+(78, 25, 430000, '2024-04-25', 0),
+(79, 25, 430000, '2024-05-25', 0),
+(80, 25, 430000, '2024-06-25', 0),
+(81, 25, 430000, '2024-07-25', 0),
+(82, 25, 430000, '2024-08-25', 0);
 
 -- --------------------------------------------------------
 
@@ -209,11 +215,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `apellido`, `nombre`, `email`, `clave`, `rol`, `avatar`, `estado`) VALUES
-(29, 'Perez', 'Luciana', 'luciana@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads/usuario.jpg', 0),
-(30, 'Pascuali', 'Dario', 'dario@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 2, '/Uploads\\avatar_30.webp', 0),
+(29, 'Perez', 'Luciana', 'luciana@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 2, '/Uploads\\avatar_29.jpg', 0),
+(30, 'Pascuali', 'Dario', 'dario@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 2, '/Uploads\\avatar_30.jpg', 0),
 (31, 'Pascuali', 'Wilson', 'wilson@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads\\avatar_31.jpg', 0),
-(32, 'Escudero', 'Marito', 'marito@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 2, '/Uploads\\avatar_32.jpg', 0),
-(33, 'Contreras', 'Magali', 'maga@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '/Uploads\\avatar_33.jpg', 0);
+(34, 'Quinteros', 'Mayra', 'mayra@gmail.com', 'V3eS9jJaOwO8EzrO6aD1B9sGI3TGGd4jnG0hTIn22R0=', 1, '', 0);
 
 --
 -- Índices para tablas volcadas
@@ -267,7 +272,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  MODIFY `idContrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idContrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `inmueble`
@@ -285,7 +290,7 @@ ALTER TABLE `inquilino`
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT de la tabla `propietario`
@@ -297,7 +302,7 @@ ALTER TABLE `propietario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Restricciones para tablas volcadas
