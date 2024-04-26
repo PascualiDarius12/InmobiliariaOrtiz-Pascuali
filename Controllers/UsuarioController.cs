@@ -123,7 +123,7 @@ public class UsuarioController : Controller
             {
                 usuario.AvatarFile.CopyTo(stream);
             }
-            ur.Modificacion(usuario);
+            ur.ModificacionConFoto(usuario);
         }
         return RedirectToAction(nameof(Index));
         // }
@@ -490,16 +490,18 @@ public class UsuarioController : Controller
 
         }
         Console.WriteLine(id);
-        var resultado = ur.Eliminar(id);
-        if (resultado == -1)
-        {
-            TempData["Error"] = "Ocurrió un error al eliminar el usuario.";
-        }
+        
+       if(ur.ObtenerPorId(id).Email == User.Identity.Name){
+         ur.Eliminar(id);
+         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+         return RedirectToAction(nameof(Login));
+       }
 
+        // Cerrar la sesión actual
         
 
         // aca  nos redirige al inicio de sesion
-
+      var resultado = ur.Eliminar(id);
         return RedirectToAction(nameof(Index));
     }
 

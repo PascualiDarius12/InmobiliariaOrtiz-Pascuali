@@ -158,6 +158,32 @@ public class UsuarioRepo
 		return res;
 	}
 
+	public int ModificacionConFoto(Usuario e)
+	{
+		int res = -1;
+		using (MySqlConnection connection = new MySqlConnection(connectionString))
+		{
+			string sql = @"UPDATE Usuario
+					SET Nombre=@nombre, Apellido=@apellido,Avatar=@avatar, Email=@email, Clave=@clave, Rol=@rol
+					WHERE IdUsuario = @id";
+			using (MySqlCommand command = new MySqlCommand(sql, connection))
+			{
+				command.CommandType = CommandType.Text;
+				command.Parameters.AddWithValue("@nombre", e.Nombre);
+				command.Parameters.AddWithValue("@apellido", e.Apellido);
+                command.Parameters.AddWithValue("@avatar", e.Avatar);
+				command.Parameters.AddWithValue("@email", e.Email);
+				command.Parameters.AddWithValue("@clave", e.Clave);
+				command.Parameters.AddWithValue("@rol", e.Rol);
+				command.Parameters.AddWithValue("@id", e.IdUsuario);
+				connection.Open();
+				res = command.ExecuteNonQuery();
+				connection.Close();
+			}
+		}
+		return res;
+	}
+
 
 	public Usuario ObtenerPorEmail(string email)
 	{
